@@ -1,0 +1,71 @@
+﻿
+
+@{
+    ViewBag.Title = "OptionTypeList";
+}
+
+@*<script src="~/Content/EasyUi/CustomQuestionCreate.js"></script>*@
+
+
+<div class="container">
+    <div class="jumbotron">
+        <form id="ff" method="post" >
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="name">Question Title </label>
+                </div>
+                <div class="col-md-3">
+                    <input class="easyui-textbox " name="QuestionTitle" style="width:275px">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="email">Option Type </label>
+                </div>
+                <div class="col-md-3">
+                    <input id="optionName" class="easyui-combobox " name="OptionId" placeholder="Select Option Type" data-options="valueField:'OptionId',textField:'OptionTypeName',method:'Get', url:'OptionList/OptionType'">                  
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                   
+                </div>
+                <div class="col-md-3">
+                    <a href="" type="submit" class="easyui-linkbutton btn btn-primary" data-options="toggle:true,group:'g1',selected:true">Save</a>
+
+                </div>
+            </div>
+
+</form>
+    </div>
+</div>
+
+
+
+
+<script>
+
+ 
+    $('#optionName').combobox({
+        valueField:'OptionId',
+        textField: 'OptionTypeName',
+        url: 'OptionList/OptionType',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+    $("#ff").form('submit',{
+        url: 'CreateOptionType/OptionType',
+        onSubmit: function (data) {
+            console.log(data);
+        }
+    });
+
+
+    </script>
+
+
+
+

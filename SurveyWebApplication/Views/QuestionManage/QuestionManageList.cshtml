@@ -1,0 +1,308 @@
+﻿@model List<SurveyWebApplication.ModelViewInfo.Option>
+
+@{
+    ViewBag.Title = "QuestionManageList";
+
+}
+
+
+
+<style>
+    
+    input, select, textarea {
+        max-width: 960px !important;
+    }
+
+    #leblsize {
+        font-weight: normal !important;
+    }
+
+    #title {
+        text-align: left !important;
+    }
+
+
+    .box1 {
+        color: #000000;
+        background-color: #ddd;
+        border: 1px solid #4ABDAC;
+        font-size: 15px;
+    }
+
+        .box1 a {
+            color: #000000;
+        }
+
+    .cards {
+        margin: 0 auto;
+        display: -webkit-flex;
+        display: flex;
+        border-radius: 10px;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-top: 15px;
+        padding: 1%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+        .cards:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+        }
+</style>
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1>Survey Question</h1>
+
+
+    </div>
+    <form id="ttt" method="post">
+        <div class="row">
+            <div class="col-md-12">
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+
+
+                    <div class="card cards card-2 " style="width: 100rem;">
+                        <div class="card-body">
+                            <h3 class="card-title "> @Model[i].SetName</h3>
+                            <p class="card-text">
+
+                                @if (@Model[i].OptionTypeName == "SingleSelected")
+                                {
+                                    for (int j = 0; j < Model[i].OptionList.Count; j++)
+                                    {
+
+                                        <div class=" row">
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options1
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options2
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options3
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+
+                                    }
+                                    
+                                }
+                                else if (@Model[i].OptionTypeName == "MultiSelected")
+                                {
+                                    for (int j = 0; j < Model[i].OptionList.Count; j++)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options1
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options2
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <label class="form-check-label" id="leblsize">
+                                                        @Model[i].OptionList[j].Options3
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                    }
+                                   
+                                }
+                                else if (@Model[i].OptionTypeName == "Text")
+                                {
+                                    <div class="row">
+
+                                        <textarea class="form-control" rows="3"></textarea>
+
+                                    </div>
+                                   
+                                }
+                                
+                            </p>
+
+                        </div>
+                    </div>
+                    
+                }
+                <div class="text-center"><br />
+                    <a href="#" class="btn btn-primary"> Submit Answer</a>
+                </div>
+                
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+@*<div class="container">
+        <div class="">
+            <div class="row card text-black">
+                <form id="QuestionAnswer" method="post">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">  @Model[i].SetName</label>
+                            </div>
+                        </div>
+                        if (@Model[i].OptionTypeName == "SingleSelected")
+                        {
+                            for (int j = 0; j < Model[i].OptionList.Count; j++)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options1
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options3
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+                        }
+                        else if (@Model[i].OptionTypeName == "MultiSelected")
+                        {
+                            for (int j = 0; j < Model[i].OptionList.Count; j++)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options1
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            <label class="form-check-label" id="leblsize">
+                                                @Model[i].OptionList[j].Options3
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+                        }
+                        else if (@Model[i].OptionTypeName == "Text")
+                        {
+                            <div class="row">
+
+                                <textarea class="form-control" rows="3"></textarea>
+
+                            </div>
+                        }
+
+
+                    }
+
+
+                    <div class="row col-12 mt-5">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>*@
+
+<script>
+
+
+
+</script>
+
+

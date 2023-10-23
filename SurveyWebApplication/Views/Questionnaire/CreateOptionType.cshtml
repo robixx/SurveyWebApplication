@@ -1,0 +1,73 @@
+﻿
+
+@{
+    ViewBag.Title = "CreateOptionType";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        
+        <form id="ff" method="post" >
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="name">Question Title </label>
+                </div>
+                <div class="col-md-3">
+                    <input class="easyui-textbox " name="QuestionTitle" style="width: 275px; height: 35px;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="email">Option Type </label>
+                </div>
+                <div class="col-md-3">
+                    <input id="optionName" class="easyui-combobox " style="width: 275px; height: 35px;" name="OptionId" placeholder="Select Option Type" data-options="valueField:'OptionId',textField:'OptionTypeName',method:'Get', url:'OptionList/OptionType'">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-3">
+                    <button  type="submit" class="easyui-linkbutton "  style="width:80px">Submit</button>
+
+                    @*<a href="javascript:void(0)" type="submit" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>*@
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+<script>
+
+
+    $('#optionName').combobox({
+        prompt: 'Select an Option',
+        valueField: 'OptionId',
+        textField: 'OptionTypeName',
+        url: 'OptionList/OptionType',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+    
+        $('#ff').form('submit',
+        {
+            url: 'CreateOptionType/Questionnaire'
+           
+
+    });
+    
+
+
+</script>
+
+
+

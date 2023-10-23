@@ -1,0 +1,57 @@
+﻿@model SurveyWebApplication.ModelViewInfo.QuestionSetManage
+
+@{
+    ViewBag.Title = "QuestionList";
+}
+
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="row card">
+            <div class="col-md-12">
+                <div class="text-right">
+                    <a href="@Url.Action("QuestionCreate", "QuestionSet")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Create</a>
+
+                </div>
+                <table id="tbl" class="easyui-datagrid" title=" Question Set" data-options="method:'get'">
+                    <thead>
+                        <tr>
+                            <th  style="width: 90px !important;text-align:center !important" data-options="field:'SetName',width:90"><b>SetName</b></th>
+                            <th style="width: 200px !important" data-options="field:'Options',width:200"><b class="text-center">Question 01</b></th>
+                            <th style="width: 200px !important" data-options="field:'Options1',width:200"><b class="text-center">Question 02</b></th>
+                            <th style="width: 200px !important" data-options="field:'Options2',width:200"><b class="text-center">Question 03</b></th>
+                            <th style="width: 200px !important" data-options="field:'Options3',width:200"><b class="text-center">Question 04</b></th>
+                            <th style="width: 90px !important" data-options="field:'InActive',width:90"><b>Status</b></th>
+                           @*<th>
+                               <a href="javascript:void(0)" onclick="editrow(this)">Edit</a>
+                           </th>*@
+
+                        </tr>
+                    </thead>
+                   
+                </table>
+            </div>
+        </div> 
+    </div>
+</div>
+<script>
+
+    var data = @Html.Raw(ViewBag.QSet)
+
+    $('#tbl').datagrid({
+        
+        data: data,
+        rowStyler: function(index,row){
+            if (row.SetName == 'Set-01') {
+                return 'background-color:#6293BB;color:#fff;font-weight:bold;';
+            }
+            else if (row.SetName == 'Set-02') {
+               return 'background-color:#3b299b;color:#fff;font-weight:bold;';
+           }
+           else if (row.InActive == false) {
+               return 'background-color:#930c38;color:#fff;font-weight:bold;';
+           }
+        }
+        
+    });
+</script>

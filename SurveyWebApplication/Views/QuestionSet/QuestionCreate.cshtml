@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "QuestionCreate";
+}
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1>Survey Services</h1>
+    </div>
+    <form id="RRR" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="our-services settings">
+                        <h2 class="card-title mt-3">Question Create</h2>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+
+
+
+                        <div class="mt-4">
+                            <div class="row mt-4">
+                                <a href="#" class="btn btn-primary mt-4" id="CreateField">Centered Survey</a>
+                            </div>
+
+                        </div>
+
+                        <div id="newinput"></div>
+
+
+
+                    </div>
+
+
+                    <div class="mt-5">
+                        <div id="Options"></div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+    <script>
+        $('#CreateField').click(function () {
+
+            addnewFiend =
+                '<div class="row">' + '<div class="col-md-6" ><label for="exampleInputPassword1" class="form-label"><h4>Question Title</h4>  </label>' + '  <input type="text" style="max-width:100% !important" name="SetName" class="form-control" id="exampleInputPassword1"> </div>' + '<div class="col-md-6"><label for="exampleInputPassword1" class="form-label"><h4>Question Type</h4> </label>' + ' <select class="form-control" name="TypeofQuestion" onchange="myFunction()" style="max-width:100% !important" id="staticDropdown" aria-label="Static dropdown example"> <option selected>Select an option</option> <option value="1">SingleSelected</option> <option value="2">MultiSelected</option><option value="3">Text</option> </select></select> </div> ' + '</div>';
+
+            $('#newinput').append(addnewFiend);
+
+        });
+
+        function myFunction() {
+            var x = document.getElementById("staticDropdown").value;
+            if (x == '1') {
+
+                addRadio = ' <div class="our-services sett"><div class="card-header mt-5"><h2>Single Selected Option </h2></div>' +
+                    '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options" class="form-control" id="exampleInputPassword1" placeholder="Option A">' + '</div> ' +
+                    '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options1" class="form-control" id="exampleInputPassword1" placeholder="Option B"> ' + '</div>' + '</div>' +
+                    '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options2" class="form-control" id="exampleInputPassword1" placeholder="Option C">' + '</div> ' +
+                    '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options3" class="form-control" id="exampleInputPassword1" placeholder="Option D"> ' + '</div>' +
+                    ' <button class="btn btn-primary" type="submit">Submit form</button>' + ' </div>';
+                $('#Options').append(addRadio);
+
+
+            }
+            else if (x == '2') {
+
+                addcheckbox = ' <div class="our-services sett"><div class="card-header mt-5"><h2>Multiple Selected Option </h2></div>' +
+                    '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options" class="form-control" id="exampleInputPassword1" placeholder="Option A">' + '</div> ' +
+                    '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options1" class="form-control" id="exampleInputPassword1" placeholder="Option B"> ' + '</div>' + '</div>' +
+                    '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options2" class="form-control" id="exampleInputPassword1" placeholder="Option C">' + '</div> ' +
+                    '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options3" class="form-control" id="exampleInputPassword1" placeholder="Option D"> ' + '</div>' +
+                    ' <button class="btn btn-primary" type="submit">Submit form</button>' + ' </div>';
+                $('#Options').append(addcheckbox);
+
+
+            }
+            else if (x == '3') {
+
+                addText = '<div class="our-services sett"><div class="card-header mt-5"><h2>Write a Text</h2></div><div class="row "><textarea  type="text"  name="Options" style="max-width:100% !important" rows="5" class="form-control"  placeholder=""></textarea ></div><br> ' +
+                ' <button class="btn btn-primary" type="submit">Submit form</button>' + '</div>';
+                $('#Options').append(addText);
+
+            }
+        }
+
+
+
+        //$('#questiontitle').combobox({
+        //    prompt: 'Select an Question',
+        //    valueField: 'QuestionId',
+        //    textField: 'QuestionTitle',
+        //    url: 'GetQuestionList/QuestionSet',
+        //    onLoadSuccess: function (data) {
+        //        console.log(data);
+        //    }
+        //});
+
+
+        //$('#isActive').checkbox({
+
+        //    value: 'true',
+        //    checked: true
+        //})
+
+        $('#RRR').form('submit',
+           {
+               url: 'QuestionCreate/QuestionSet'
+
+
+           });
+
+
+    </script>
