@@ -171,6 +171,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OptionType.cs" />
+    <Compile Include="Models\QuestionAnswer.cs" />
     <Compile Include="Models\Questionnaires.cs" />
     <Compile Include="Models\QuestionSet.cs" />
     <Compile Include="ModelViewInfo\Option.cs" />

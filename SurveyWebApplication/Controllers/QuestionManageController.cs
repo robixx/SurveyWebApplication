@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using SurveyWebApplication.DAL;
 using SurveyWebApplication.ModelViewInfo;
+using SurveyWebApplication.Models;
+
 namespace SurveyWebApplication.Controllers
 {
     public class QuestionManageController : Controller
@@ -20,5 +22,16 @@ namespace SurveyWebApplication.Controllers
             return View(result);
             
         }
+
+        [HttpPost]
+        public ActionResult SaveAnswer(QuestionAnswer model)
+        {
+
+
+            string QuestionTitle = model.QuestionTitle;
+
+            return View();
+        }
+
 	}
 }
