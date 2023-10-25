@@ -162,20 +162,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionTypeController.cs" />
     <Compile Include="Controllers\QuestionManageController.cs" />
-    <Compile Include="Controllers\QuestionnaireController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionSetController.cs" />
+    <Compile Include="Controllers\QuestionSetsController.cs" />
     <Compile Include="DAL\DatabaseConnection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OptionType.cs" />
+    <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionAnswer.cs" />
-    <Compile Include="Models\Questionnaires.cs" />
+    <Compile Include="Models\Option.cs" />
     <Compile Include="Models\QuestionSet.cs" />
-    <Compile Include="ModelViewInfo\Option.cs" />
-    <Compile Include="ModelViewInfo\Question.cs" />
+    <Compile Include="ModelViewInfo\QuestionManage.cs" />
     <Compile Include="ModelViewInfo\QuestionSetManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -238,6 +240,11 @@
     <Content Include="Views\QuestionSet\QuestionList.cshtml" />
     <Content Include="Views\QuestionSet\QuestionCreate.cshtml" />
     <Content Include="Views\QuestionManage\QuestionManageList.cshtml" />
+    <Content Include="Views\QuestionSets\QuestionSet.cshtml" />
+    <Content Include="Views\QuestionSets\QuestionSetCreate.cshtml" />
+    <Content Include="Views\Question\QuestionTitleList.cshtml" />
+    <Content Include="Views\Question\QuestionCreate.cshtml" />
+    <Content Include="Views\QuestionManage\QuestionManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,11 +6,15 @@ using System.ComponentModel.DataAnnotations;
 using SurveyWebApplication.ModelViewInfo;
 namespace SurveyWebApplication.Models
 {
-
-    public class OptionType : BaseModel
+    public class Option :BaseModel
     {
         [Key]
+        public int OptionId { get; set; }
+        public string OptionName { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsCorrect { get; set; }
+        public int QuestionId { get; set; }
         public int OptionTypeId { get; set; }
-        public string OptionTypeName { get; set; }
+        
     }
 }

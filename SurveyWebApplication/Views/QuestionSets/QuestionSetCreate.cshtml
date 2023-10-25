@@ -1,0 +1,76 @@
+﻿@model SurveyWebApplication.Models.QuestionSet
+
+@{
+    ViewBag.Title = "QuestionSetCreate";
+}
+
+
+<style>
+    .cards {
+        margin: 0 auto;
+        display: -webkit-flex;
+        display: flex;
+        border-radius: 10px;
+        /*-webkit-justify-content: center;
+        justify-content: center;*/
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-top: 15px;
+        padding: 1%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+        .cards:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+        }
+</style>
+
+
+
+
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1> Question Set</h1>
+    </div>
+    <form id="fff" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class=" cards " style="width: 100rem;">                   
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="name">Set Name </label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="easyui-textbox " name="SetName" style="width: 275px; height: 35px;">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <br /><button type="submit" class="easyui-linkbutton " style="width:80px">Submit</button>
+
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $('#fff').form('submit',
+       {
+           url: 'QuestionSetCreate/QuestionSets'
+
+
+       });
+</script>

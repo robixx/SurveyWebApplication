@@ -39,9 +39,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav active">
-                    <li>@Html.ActionLink("QuestionTitle", "QuestionTitleList", "Questionnaire")</li>
-                    <li>@Html.ActionLink("QuestionSet", "QuestionList", "QuestionSet")</li>
-                    <li>@Html.ActionLink("Question", "QuestionManageList", "QuestionManage")</li>
+                    <li>@Html.ActionLink("QuestionSet", "QuestionSet", "QuestionSets")</li>
+                    <li>@Html.ActionLink("OptionTypeList", "OptionTypeList", "OptionType")</li>
+                    <li>@Html.ActionLink("Question", "QuestionTitleList", "Question")</li>
+                    <li>@Html.ActionLink("QuestionManage", "QuestionManage", "QuestionManage")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

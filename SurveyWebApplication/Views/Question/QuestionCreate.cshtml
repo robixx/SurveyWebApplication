@@ -1,0 +1,119 @@
+﻿@model SurveyWebApplication.Models.Question
+
+@{
+    ViewBag.Title = "QuestionCreate";
+}
+
+
+<style>
+    .cards {
+        margin: 0 auto;
+        display: -webkit-flex;
+        display: flex;
+        border-radius: 10px;
+        /*-webkit-justify-content: center;
+        justify-content: center;*/
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-top: 15px;
+        padding: 1%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+        .cards:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+        }
+</style>
+
+
+
+
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1> Question Create</h1>
+    </div>
+    <form id="fff" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class=" cards " style="width: 100rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="name">Question Title </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input class="easyui-textbox " name="QuestionTitle" style="width: 275px; height: 35px;">
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="email">Set Name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input id="setName" class="easyui-combobox " style="width: 275px; height: 35px;" name="SetId" placeholder="Select Option Type" data-options="valueField:'SetId',textField:'SetName',method:'Get', url:'SetList/Question'">
+
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="email">Option Type </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input id="optionName" class="easyui-combobox " style="width: 275px; height: 35px;" name="OptionTypeId" placeholder="Select Option Type" data-options="valueField:'OptionTypeId',textField:'OptionTypeName',method:'Get', url:'OptionList/Question'">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                            </div>
+                            <div class="col-md-5">
+                                <br /><button type="submit" class="easyui-linkbutton " style="width:80px">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+    $('#optionName').combobox({
+        prompt: 'Select an Option',
+        valueField: 'OptionTypeId',
+        textField: 'OptionTypeName',
+        url: 'OptionList/Question',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+    $('#setName').combobox({
+        prompt: 'Select an Set',
+        valueField: 'SetId',
+        textField: 'SetName',
+        url: 'SetList/Question',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+
+
+
+
+    $('#fff').form('submit',
+       {
+           url: 'QuestionCreate/Question'
+
+
+       });
+</script>

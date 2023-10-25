@@ -20,36 +20,39 @@ namespace SurveyWebApplication.Controllers
         [HttpGet]
         public ActionResult OptionTypeList()
         {
-
-            return View();
-        }
-
-        [HttpGet]
-        public JsonResult OptionList()
-        {
             var databaseConnection = new DatabaseConnection();
-            var data = databaseConnection.GetAllOptionType();
-
-            return Json(data,JsonRequestBehavior.AllowGet);
-           
-           
-        }
-        [HttpPost]
-        public ActionResult CreateOptionType(string QuestionTitle, string OptionId)
-        {
-            string Title = QuestionTitle.ToString();
-            string id = OptionId.ToString(); 
-            if (Title == "" && id == "")
-            {
-
-            }
-            else
-            {
-                var databaseConnection = new DatabaseConnection();
-                var valueadd = databaseConnection.CreateOptionType(Title, id);
-            }
-           
+            List<OptionType> data = databaseConnection.GetAllOptionType();
+            ViewBag.JsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             return View();
+           
         }
+
+        //[HttpGet]
+        //public JsonResult OptionList()
+        //{
+        //    var databaseConnection = new DatabaseConnection();
+        //    var data = databaseConnection.GetAllOptionType();
+
+        //    return Json(data,JsonRequestBehavior.AllowGet);
+           
+           
+        //}
+        //[HttpPost]
+        //public ActionResult CreateOptionType(string QuestionTitle, string OptionId)
+        //{
+        //    string Title = QuestionTitle.ToString();
+        //    string id = OptionId.ToString(); 
+        //    if (Title == "" && id == "")
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        var databaseConnection = new DatabaseConnection();
+        //        var valueadd = databaseConnection.CreateOptionType(Title, id);
+        //    }
+           
+        //    return View();
+        //}
     }
 }

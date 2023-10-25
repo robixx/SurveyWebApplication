@@ -1,13 +1,12 @@
-﻿@model List<SurveyWebApplication.Models.OptionType>
-
+﻿@model List<SurveyWebApplication.Models.QuestionSet>
 
 @{
-    ViewBag.Title = "OptionTypeList";
+    ViewBag.Title = "QuestionSet";
 }
 
-@*<script src="~/Content/EasyUi/CustomQuestionCreate.js"></script>*@
-
 <style>
+    
+
     .cards {
         margin: 0 auto;
         display: -webkit-flex;
@@ -28,6 +27,8 @@
         .cards:hover {
             box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
         }
+
+  
 </style>
 
 
@@ -36,19 +37,20 @@
     <div class="text-center mt-5">
         <h1> Question Set</h1>
     </div>
-
+   
     <div class="row">
         <div class="col-md-12">
             <div class=" cards " style="width: 100rem;">
                 <div class="text-right">
-                    <a href="@Url.Action("OptionTypeCreate", "OptionType")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Type Create</a>
+                    <a href="@Url.Action("QuestionSetCreate", "QuestionSets")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Create</a>
 
                 </div>
                 <div class="card-body" style="width: 95rem;">
-                    <table id="tbl" class="easyui-datagrid" title="Basic OptionType Name" data-options="method:'get'">
+                    <table id="tbl" class="easyui-datagrid" title="Basic Question Set" data-options="method:'get'">
                         <thead>
                             <tr>
-                                <th data-options="field:'OptionTypeName',width:'50px'"><b>OptionType Name</b></th>
+                                <th data-options="field:'SetId',width:'50px'"><b>SetId</b></th>
+                                <th data-options="field:'SetName',width:'500px'"><b>Set Name</b></th>
                                 <th data-options="field:'CreateDate',width:'200px'"><b>CreateDate</b></th>
 
                             </tr>
@@ -68,29 +70,3 @@
  });
 
 </script>
-
-@*<script>
-
- 
-    //$('#optionName').combobox({
-    //    valueField:'OptionId',
-    //    textField: 'OptionTypeName',
-    //    url: 'OptionList/OptionType',
-    //    onLoadSuccess: function (data) {
-    //        console.log(data);
-    //    }
-    //});
-
-    $("#ff").form('submit',{
-        url: 'CreateOptionType/OptionType',
-        onSubmit: function (data) {
-            console.log(data);
-        }
-    });
-
-
-    </script>*@
-
-
-
-

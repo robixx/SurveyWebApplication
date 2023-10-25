@@ -5,12 +5,15 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 namespace SurveyWebApplication.ModelViewInfo
 {
-    public class Question
+    public class QuestionManage
     {
+
         [Key]
         public int QuestionId { get; set; }
         public string QuestionTitle { get; set; }
-        public int OptionId { get; set; }
+        public int SetId { get; set; }
+        public string SetName { get; set; }
+        public int OptionTypeId { get; set; }
         public string OptionTypeName { get; set; }
     }
 }

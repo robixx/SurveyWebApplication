@@ -11,16 +11,16 @@ using System.Data.SqlClient;
 using SurveyWebApplication.DAL;
 namespace SurveyWebApplication.Controllers
 {
-    public class QuestionnaireController : Controller
+    public class QuestionController : Controller
     {
-        //
+       
         // GET: /Questionnaire/
         [HttpGet]
         public ActionResult QuestionTitleList()
         {
             var databaseConnection = new DatabaseConnection();
-            List<Question> data = databaseConnection.GetAllQuestion();
-            ViewBag.JsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data); 
+            List<QuestionManage> data = databaseConnection.GetAllQuestion();
+            ViewBag.JsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             return View();
         }
 
@@ -35,34 +35,44 @@ namespace SurveyWebApplication.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult SetList()
+        {
+            var databaseConnection = new DatabaseConnection();
+            var data = databaseConnection.GetAllQuestionSet();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+
+        }
+
 
 
         [HttpGet]
-        public ActionResult CreateOptionType()
+        public ActionResult QuestionCreate()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult CreateOptionType(Questionnaires model)
+        public ActionResult QuestionCreate(Question model)
         {
-            Questionnaires q = new Questionnaires
-            {
-                QuestionTitle=model.QuestionTitle,
-                QuestionId=model.QuestionId,
-                OptionId=model.OptionId,
-            };
-
-
+            
             string Title = model.QuestionTitle;
-            string id = model.OptionId.ToString();
-            if (Title == null && id =="0")
+            string setid = model.SetId.ToString();
+            string OptionTypeId = model.OptionTypeId.ToString();
+            string createby = "";
+            string updateby = "";
+            DateTime CreateDate = DateTime.Now;
+            DateTime UpdateDate = Convert.ToDateTime("1900-01-01");
+            string Status = "";
+            if (Title == null && setid == "0" && OptionTypeId == "0")
             {
 
             }
             else
             {
                 var databaseConnection = new DatabaseConnection();
-                var valueadd = databaseConnection.CreateOptionType(Title, id);
+                var valueadd = databaseConnection.CreateQuestion(Title, setid, OptionTypeId, createby, updateby, CreateDate, UpdateDate, Status);
                 TempData["massage"] = valueadd;
                 return RedirectToAction("QuestionTitleList");
             }

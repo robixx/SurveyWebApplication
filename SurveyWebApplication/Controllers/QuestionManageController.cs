@@ -11,27 +11,50 @@ namespace SurveyWebApplication.Controllers
 {
     public class QuestionManageController : Controller
     {
-        //
-        // GET: /QuestionManage/
-        [HttpGet]
-        public ActionResult QuestionManageList()
-        {
-            var databaseConnection = new DatabaseConnection();
-            List<Option> result = databaseConnection.GetQuestionAnswerss();
-            //ViewBag.result = Newtonsoft.Json.JsonConvert.SerializeObject(result);
-            return View(result);
+        
+         //GET: /QuestionManage/
+        //[HttpGet]
+        //public ActionResult QuestionManageList()
+        //{
+        //    var databaseConnection = new DatabaseConnection();
+        //    List<Option> result = databaseConnection.GetQuestionAnswerss();
+        //    //ViewBag.result = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+        //    return View(result);
             
-        }
+        //}
 
-        [HttpPost]
-        public ActionResult SaveAnswer(QuestionAnswer model)
+        [HttpGet]
+        public ActionResult QuestionManage()
         {
 
-
-            string QuestionTitle = model.QuestionTitle;
 
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetQuestionList()
+        {
+            var databaseConnection = new DatabaseConnection();
+            var data = databaseConnection.GetAllQuestionList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult OptionList()
+        {
+            var databaseConnection = new DatabaseConnection();
+            var data = databaseConnection.GetAllOptionType();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+        [HttpPost]
+        public ActionResult QuestionCreate()
+        {
+            return View();
+        }
+        
 	}
 }

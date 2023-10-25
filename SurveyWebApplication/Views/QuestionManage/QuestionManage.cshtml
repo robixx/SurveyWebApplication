@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "QuestionManage";
+}
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1>Survey Services</h1>
+    </div>
+    <form id="RRR" method="post">
+        
+                <div class="box">
+                    <div class="our-services settings">
+                        <h2 class="card-title mt-3">Question Create</h2>
+                        <p class="card-text">
+
+                        </p>
+
+                        <div class="row ">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <h4>Question Title</h4>
+                                </label>
+                                <input type="text" id="QuestionTitle" name="QuestionId" class="easyui-combobox form-control " style=" width: 275px; height: 35px;" data-options="valueField:'QuestionId',textField:'QuestionTitle',method:'Get', url:'GetQuestionList/QuestionManage'">
+                           
+                                <label class="form-label">
+                                    <h4>Question Type</h4>
+                                </label>
+                                <input type="text" id="OptionType" name="OptionTypeId" class="easyui-combobox form-control " style=" width: 275px; height: 35px;" data-options="valueField:'OptionTypeId',textField:'OptionTypeName',method:'Get', url:'OptionList/QuestionManage'">
+                               
+                                <label for="name"><h4>Option Title   &nbsp;&nbsp;</h4></label>
+                                <input class="easyui-textbox form-control " name="OptionName" style="width: 275px; height: 35px;">
+                                <div id="increseid"></div>
+                                <label for="name"><h4>Currect Answer </h4></label>
+                                <input class="form-check form-check-input" type="checkbox" style="width:20px" name="IsCorrect">
+                                
+                            </div>
+                         
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                               
+
+                            </div>
+                            <div class="col-md-1">
+                                <a  id="addRow" onclick="Add()" class="form-control ">+</a>
+                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-6">
+                                <br />
+                                <button type="submit" class="easyui-linkbutton " style="width:80px">Submit</button>
+
+                                @*<a href="javascript:void(0)" type="submit" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>*@
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+        
+    </form>
+
+</div>
+<script>
+
+    function Add() {
+        var x = document.getElementById("#addRow");
+        x = '  <label for="name"><h4>Option Title   &nbsp;&nbsp;</h4></label><input class="easyui-textbox form-control " name="OptionName" style="width: 275px; height: 35px;">';
+        $('#increseid').append(x);
+    }
+
+
+    //function myFunction() {
+
+    //    var x = document.getElementById("staticDropdown").value;
+    //    if (x == '1') {
+
+    //        addRadio = ' <div class="our-services sett" id="input1"><div class="card-header mt-5"><h2>Single Selected Option </h2></div>' +
+    //            '<div class="row ">' + ' <div class="form-group col-md-6 ">' +
+    //            ' <input type="text" style="max-width:100% !important" name="Options" class="form-control" id="exampleInputPassword1" placeholder="Option A">' + '</div> '
+    //             + ' </div>'
+
+    //            ' <button class="btn btn-primary" type="submit">Submit form</button>';
+    //        $('#Options').append(addRadio);
+
+    //    }
+    //    else if (x == '2') {
+
+    //        addcheckbox = ' <div class="our-services sett" id="input2"><div class="card-header mt-5"><h2>Multiple Selected Option </h2></div>' +
+    //            '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options" class="form-control" id="exampleInputPassword1" placeholder="Option A">' + '</div> ' +
+    //            '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options1" class="form-control" id="exampleInputPassword1" placeholder="Option B"> ' + '</div>' + '</div>' +
+    //            '<div class="row ">' + ' <div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options2" class="form-control" id="exampleInputPassword1" placeholder="Option C">' + '</div> ' +
+    //            '<div class="form-group col-md-6 ">' + ' <input type="text" style="max-width:100% !important" name="Options3" class="form-control" id="exampleInputPassword1" placeholder="Option D"> ' + '</div>' +
+    //            ' <button class="btn btn-primary" type="submit">Submit form</button>' + ' </div>';
+    //        $('#Options').append(addcheckbox);
+
+
+    //    }
+    //    else if (x == '3') {
+
+    //        addText = '<div class="our-services sett" id="input3"><div class="card-header mt-5"><h2>Write a Text</h2></div><div class="row "><textarea  type="text"  name="Options" style="max-width:100% !important" rows="5" class="form-control"  placeholder=""></textarea ></div><br> ' +
+    //        ' <button class="btn btn-primary" type="submit">Submit form</button>' + '</div>';
+    //        $('#Options').append(addText);
+
+    //    }
+    //}
+
+    $('#optionName').combobox({
+
+        prompt: 'Select an OptionType',
+        valueField: 'OptionTypeId',
+        textField: 'OptionTypeName',
+        url: 'OptionList/QuestionManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+
+    });
+
+    $('#QuestionTitle').combobox({
+        prompt: 'Select an Question Title',
+        valueField: 'QuestionId',
+        textField: 'QuestionTitle',
+        url: 'GetQuestionList/QuestionManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+
+
+    $('#RRR').form('submit',
+       {
+           url: 'QuestionCreate/QuestionManage'
+
+
+       });
+
+
+</script>

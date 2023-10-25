@@ -58,7 +58,7 @@
     }
 </style>
 
-<div class="container-fluid mb-5">
+@*<div class="container-fluid mb-5">
     <div class="text-center mt-5">
         <h1>Survey Question</h1>
 
@@ -72,7 +72,7 @@
                 {
 
 
-                    <div class=" cards " style="width: 90rem;">
+                    <div class=" cards " style="width: 100rem;">
                         <div class="card-body">
 
                             <h3 class="card-title "><label class="form-label" name="QuestionTitle">@k. @Model[i].SetName</label> </h3>
@@ -86,13 +86,13 @@
                                         <div class=" row">
                                             <div class="col-md-6" id="input-tag">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <input class="easyui-radiobutton form-check-input" type="radio" name="questionResponses[@i].InputFieldName" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <input class="easyui-radiobutton form-check-input" type="radio" name="questionResponses[@i].InputFieldName" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options1
                                                     </label>
@@ -100,13 +100,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <input class=" easyui-radiobutton form-check-input" type="radio" name="questionResponses[@i].InputFieldName" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options2
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                    <input class="easyui-radiobutton form-check-input" type="radio" name="questionResponses[@i].InputFieldName" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options3
                                                     </label>
@@ -124,32 +124,32 @@
                                     {
                                         <div class="row">
                                             <div class="col-md-6" id="input-tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                
+                                                    <input class="easyui-checkbox " type="checkbox" id="checkbox1" name="questionResponses[@i].CheckBox" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options
                                                     </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                            
+                                              
+                                                <input class="easyui-checkbox " type="checkbox" id="checkbox2" name="questionResponses[@i].CheckBox" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options1
                                                     </label>
                                                 </div>
-                                            </div>
+                                         
                                             <div class="col-md-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                                
+                                                <input class="easyui-checkbox " type="checkbox" id="checkbox3" name="questionResponses[@i].CheckBox" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options2
                                                     </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="questionResponses[@i].SelectedOptionId" value="@Model[i].OptionList[j].OptionId">
+                                               
+                                               
+                                                <input class="easyui-checkbox " type="checkbox" id="checkbox4" name="questionResponses[@i].CheckBox" value="@Model[i].OptionList[j].OptionId">
                                                     <label class="form-check-label" id="leblsize">
                                                         @Model[i].OptionList[j].Options3
                                                     </label>
-                                                </div>
+                                               
                                             </div>
                                         </div>
 
@@ -160,7 +160,7 @@
                                 {
                                     <div class="row" id="input-tag">
 
-                                        <textarea class="form-control" rows="3"></textarea>
+                                        <textarea class="form-control" name="questionResponses[@i].TextField" rows="4"></textarea>
 
                                     </div>
 
@@ -175,7 +175,7 @@
                 }
                 <div class="text-center">
                     <br />
-                    <button type="submit" class="easyui-linkbutton  btn btn-primary">Answer Submit</button>
+                    <button type="submit" class="easyui-linkbutton">Answer Submit</button>
                 </div>
 
             </div>
@@ -183,14 +183,17 @@
 
     </form>
 
-</div>
+</div>*@
 
 
 
 <script>
+
+   
     $('#ttt').form('submit',
        {
-           url: 'SaveAnswer/QuestionManage';
+           
+           url: 'SaveAnswer/QuestionManage'
 
 
        });
