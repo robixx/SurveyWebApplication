@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SurveyWebApplication.DAL;
 using SurveyWebApplication.ModelViewInfo;
 using SurveyWebApplication.Models;
+using Newtonsoft.Json;
 
 namespace SurveyWebApplication.Controllers
 {
@@ -24,7 +25,7 @@ namespace SurveyWebApplication.Controllers
         //}
 
         [HttpGet]
-        public ActionResult QuestionManage()
+        public ActionResult QuestionManages()
         {
 
 
@@ -50,10 +51,21 @@ namespace SurveyWebApplication.Controllers
 
         }
 
-        [HttpPost]
+
+        [HttpGet]
         public ActionResult QuestionCreate()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public JsonResult QuestionCreate(Question model)
+        {
+            model.OptionList = JsonConvert.DeserializeObject<List<Options>>(model.OptionListstring);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+           // return RedirectToAction("QuestionSet", "QuestionSets");
         }
         
 	}

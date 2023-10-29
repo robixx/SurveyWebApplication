@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "QuestionManages";
+}
+
+<div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+        <h1>Survey Services</h1>
+    </div>
+    <form id="RRR" method="post">
+       
+            <div class="card shadow-lg p-3 mb-5 bg-light rounded">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input id="QuestionTitle" class="easyui-combobox " label="Question Title:" labelposition="top" style="width:100%;" name="QuestionId" placeholder="Select Option Type" data-options="valueField:'QuestionId',textField:'QuestionTitle',method:'Get', url:'GetQuestionList/QuestionManage'">
+
+                    </div>
+                    <div class="col-md-3">
+                        <input id="optionNames" class="easyui-combobox " label="Question Type:" labelposition="top" style="width:100%;" name="OptionTypeId" placeholder="Select Option Type" data-options="valueField:'OptionTypeId',textField:'OptionTypeName',method:'Get', url:'OptionList/Question'">
+
+                    </div>
+                    <div class="col-md-2">
+                        <input class="easyui-textbox" id="text1" name="OptionName[]" label="Option:" labelposition="top" style="width:100%;">
+
+                    </div>
+                    <div class="col-md-2 mt-4">
+                        <div id="Checkid"></div>
+                    </div>
+                    <div class="col-md-2 mt-4 ">
+                        
+                        <a  class="easyui-linkbutton c1" id="addOption" name="addOption" style="width:100px">Add Option</a>
+                    </div>
+
+                </div>
+                <div id="rowadd">
+                   
+                </div>
+                    
+
+                    <div class="row">
+
+                        <div id="rowid"></div>
+                        @*<input class="easyui-textbox" label="Description:" labelposition="top" multiline="true" style="width:100%;height:120px">*@
+
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2">
+
+                            <button type="submit" class="easyui-linkbutton c1 " style="width:120px">Save Question</button>
+
+                        </div>
+                    </div>
+                </div>
+     
+       
+        
+    </form>
+
+</div>
+<script>
+
+
+    $('#addOption').on('click', function () {
+        var x = document.getElementById('optionNames').value;
+        if (x == '1') {
+            op = ' <div class="row"><div class="col-md-3"></div><div class="col-md-3"></div> <div class="col-md-2">'+
+           ' <label class="textbox-label textbox-label-top" for="_easyui_textbox_input4" style="text-align: left; width: 186px;">Option:</label><input class="easyui-textbox textbox-f" id="text1" label="Option:" labelposition="top" style="width: 100%; display: none;" textboxname="OptionName[]">'+
+           '<span class="textbox easyui-fluid" style="width: 186px;"><input id="_easyui_textbox_input4" type="text" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" data-bs-original-title="" title="" placeholder="" style="width: 184px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;">'+
+           '<input type="hidden" class="textbox-value" name="OptionName[]" value=""></span>'+
+            ' </div> <div class="col-md-2 mt-4"><label>IsCurrect</label> <input type="radio" name="IsActive" id="radio2" label="IsActive" class="easyui-radiobutton">' +
+                ' </div></div>';
+           
+            $('#rowadd').append(op);
+            
+        } else if (x == '2') {
+            op = ' <div class="row"><div class="col-md-3"></div><div class="col-md-3"></div> <div class="col-md-2">' +
+          ' <label class="textbox-label textbox-label-top" for="_easyui_textbox_input4" style="text-align: left; width: 186px;">Option:</label><input class="easyui-textbox textbox-f" id="text1" label="Option:" labelposition="top" style="width: 100%; display: none;" textboxname="OptionName[]">' +
+          '<span class="textbox easyui-fluid" style="width: 186px;"><input id="_easyui_textbox_input4" type="text" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" data-bs-original-title="" title="" placeholder="" style="width: 184px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;">' +
+          '<input type="hidden" class="textbox-value" name="OptionName[]" value=""></span>' +
+           ' </div> <div class="col-md-2 mt-4"><label>IsCurrect</label> <input type="checkbox" name="IsActive" id="radio2" label="IsActive" class="easyui-checkbox">' +
+               ' </div></div>';
+
+            $('#rowadd').append(op);
+        }
+    });
+
+
+    function Add() {
+        var x = document.getElementById("#addRow");
+        x = '  <label for="name"><h4>Option Title   &nbsp;&nbsp;</h4></label><input class="easyui-textbox form-control " name="OptionName" style="width: 275px; height: 35px;">';
+        $('#increseid').append(x);
+    }
+
+   
+
+    $('#optionNames').combobox({
+        onChange: function (newValue) {
+            var x = document.getElementById('optionNames').value;
+            if (x == '1') {
+                $('#check1').hide();
+                $('#check2').hide();
+                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="radio1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="radio" name="IsActive" id="radio2" class="easyui-checkbox checkbox-f">';
+                $('#Checkid').append(x);
+            }
+            else if (x == "2") {
+                $('#radio1').hide();
+                $('#radio2').hide();
+                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="check1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="checkbox" name="IsActive" id="check2" class="easyui-checkbox checkbox-f">';
+                $('#Checkid').append(x);
+            }
+            else if (x == '3') {
+                $('#check1').hide();
+                $('#check2').hide();
+                $('#radio1').hide();
+                $('#radio2').hide();
+                $('#text1').hide();
+                x = '<div class="col-md-4"><label class="textbox-label textbox-label-top" for="_easyui_textbox_input5" style="text-align: left; width: 186px;">Description:</label><input class="easyui-textbox textbox-f" label="Description:" labelposition="top" multiline="true" style="width: 100%; height: 120px; display: none;"><span class="textbox easyui-fluid" style="width: 186px; height: 90px;"><textarea id="_easyui_textbox_input5" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" data-bs-original-title="" title="" placeholder="" style="margin: 0px; height: 88px; width: 100%;"></textarea><input type="hidden" class="textbox-value" value=""></span></div>';
+                $('#rowid').append(x);
+            }
+
+        }
+
+    });
+
+    
+
+    $('#optionNames').combobox({
+
+        prompt: 'Select an OptionType',
+        valueField: 'OptionTypeId',
+        textField: 'OptionTypeName',
+        url: 'OptionList/QuestionManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+
+    });
+
+    $('#QuestionTitle').combobox({
+        prompt: 'Select an Question Title',
+        valueField: 'QuestionId',
+        textField: 'QuestionTitle',
+        url: 'GetQuestionList/QuestionManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+
+
+    $('#RRR').form('submit',
+       {
+           
+         url: 'QuestionCreate/QuestionManage'
+
+
+       });
+
+
+</script>

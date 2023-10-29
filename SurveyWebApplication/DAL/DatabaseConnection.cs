@@ -232,7 +232,45 @@ namespace SurveyWebApplication.DAL
 
         }
 
+        public string QuestionCreate(string QuestionId, string OptionTypeId, string OptionName, string IsCorrect, string IsActive, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
+        {
 
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+
+                string sql = "INSERT INTO Options (OptionName, IsActive, IsCorrect,QuestionId,OptionTypeId, CreateBy, UpdateBy, CreateDate, UpdateDate, Status) VALUES (@OptionName, @IsActive, @IsCorrect,@QuestionId,@OptionTypeId, @createby, @updateby, @CreateDate, @UpdateDate, @Status)";
+
+                using (SqlCommand command = new SqlCommand(sql, connect))
+                {
+                    command.Parameters.AddWithValue("@OptionName", OptionName);
+                    command.Parameters.AddWithValue("@IsActive", IsActive);
+                    command.Parameters.AddWithValue("@IsCorrect", IsCorrect);
+                    command.Parameters.AddWithValue("@QuestionId", QuestionId);
+                    command.Parameters.AddWithValue("@OptionTypeId", OptionTypeId);
+                    command.Parameters.AddWithValue("@CreateBy", createby);
+                    command.Parameters.AddWithValue("@UpdateBy", updateby);
+                    command.Parameters.AddWithValue("@CreateDate", CreateDate);
+                    command.Parameters.AddWithValue("@UpdateDate", UpdateDate);
+                    command.Parameters.AddWithValue("@Status", Status);
+
+                    var rowcount = command.ExecuteNonQuery();
+                    if (rowcount > 0)
+                    {
+                        return "Data inserted successfully!";
+
+                    }
+                    else
+                    {
+                        return "Data inserted Failed!";
+
+                    }
+
+                }
+
+
+            }
+        }
 
 
         //public List<QuestionSet> GetQuestionSet()

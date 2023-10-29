@@ -12,7 +12,8 @@ namespace SurveyWebApplication.Models
         public string QuestionTitle { get; set; }
         public int SetId { get; set; }
         public int OptionTypeId { get; set; }
-        public List<Option> OptionList { get; set; }
+        public List<Options> OptionList { get; set; }
+        public string OptionListstring { get; set; }
 
 
     }

@@ -16,7 +16,7 @@ namespace SurveyWebApplication.Models
 
         public System.Data.Entity.DbSet<SurveyWebApplication.Models.OptionType> OptionTypes { get; set; }
 
-        public System.Data.Entity.DbSet<SurveyWebApplication.Models.Option> Questionnaires { get; set; }
+        public System.Data.Entity.DbSet<SurveyWebApplication.Models.Options> Questionnaires { get; set; }
 
         public System.Data.Entity.DbSet<SurveyWebApplication.Models.QuestionSet> QuestionSets { get; set; }
 
