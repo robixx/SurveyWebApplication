@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 using SurveyWebApplication.ModelViewInfo;
 namespace SurveyWebApplication.Models
 {
-    public class Option :BaseModel
+    public class Options :BaseModel
     {
-        [Key]
+      //  [Key]
         public int OptionId { get; set; }
         public string OptionName { get; set; }
         public bool IsActive { get; set; }
