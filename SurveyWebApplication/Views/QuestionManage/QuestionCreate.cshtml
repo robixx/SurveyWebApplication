@@ -69,7 +69,7 @@
         var optionHtml = '<div class="row"><div class="col-md-3"></div><div class="col-md-3"></div> <div class="col-md-2">' +
            ' <label class="textbox-label textbox-label-top" >Option:</label>' +
            '<input type="text" id="text1" class="easyui-textbox form-control dynamic-option" name="OptionName[' + i + ']" value="">' +
-            ' </div> <div class="col-md-2 mt-4"><label>IsCurrect</label> <input type="' + inputtype + '" name="IsActive[' + i + ']" id="radio2" label="IsActive" class="IsActive easyui-' + inputtype + '">' +
+            ' </div> <div class="col-md-2 mt-4"><label>IsCurrect</label> <input type="' + inputtype + '" name="IsCorrect[' + i + ']" id="radio2" label="IsActive" class="IsCorrect easyui-' + inputtype + '">' +
                 ' </div></div>';
 
         $('#rowadd').append(optionHtml);
@@ -92,13 +92,13 @@
             if (x == '1') {
                 $('#check1').hide();
                 $('#check2').hide();
-                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="radio1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="radio" name="IsActive" id="radio2" class="easyui-checkbox IsActive">';
+                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="radio1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="radio" name="IsCorrect" id="radio2" class="easyui-checkbox IsCorrect">';
                 $('#Checkid').append(x);
             }
             else if (x == "2") {
                 $('#radio1').hide();
                 $('#radio2').hide();
-                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="check1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="checkbox" name="IsActive" id="check2" class="easyui-checkbox IsActive">';
+                x = '<label class="textbox-label textbox-label-before textbox-label-checked" id="check1"  style="text-align: left; height: 20px; line-height: 20px;">IsCurrect:</label><input type="checkbox" name="IsCorrect" id="check2" class="easyui-checkbox IsCorrect">';
                 $('#Checkid').append(x);
             }
             else if (x == '3') {
@@ -154,7 +154,7 @@
         e.preventDefault();
         debugger;
         var optionEl =  document.getElementsByClassName("dynamic-option");
-        var isCorrectEL = document.getElementsByClassName("IsActive");
+        var isCorrectEL = document.getElementsByClassName("IsCorrect");
         
         var model = {
             QuestionId: $('#QuestionTitle').val(),
@@ -168,53 +168,14 @@
             var isCor = isCorrectEL[i].checked;
             model.OptionList.push({
                 OptionName: optionName,
-                IsCorrect: isCor
+                QuestionId: $('#QuestionTitle').val(),
+                OptionTypeId: $('#optionNames').val(),
+                IsCorrect: isCor,
+                IsActive:"true"
             });
         }
-
-        //$('.dynamic-option').each(function () {
-        //    model.OptionList.push({
-        //        OptionName: $(this).val(),
-        //        IsActive: $(this).closest('.row').find(':input[type=radio], :input[type=checkbox]').is(':checked')
-        //    });
-
-
-       // });
-        //debugger;
-
-        //var model = [];
-        //for (let i = 0; i < optionEl.length; i++) {
-        //    var optionName = optionEl[i].value;
-        //    var isCor = isCorrectEL[i].checked;
-
-        //    model.push({
-        //        QuestionId: $('#QuestionTitle').val(),
-        //        OptionTypeId: $('#optionNames').val(),
-        //        OptionName: optionName,
-        //        IsCorrect: isCor
-        //    });
-        //}
-        //to get alert popup
-        console.log(model);
-
-        //$.ajax({
-        //    url: "/QuestionCreate/QuestionManage",
-        //    data: model,
-        //    type: "POST",
-        //    dataType: "json",
-        //    contentType: "application/json; charset=utf-8",
-        //    success: function (response) {
-        //    }
-        //});
-
-        debugger;
-        //$.ajax({
-        //    url: "QuestionCreate/QuestionManage",
-        //    type: "POST",
-        //    dataType: 'json',
-        //    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        //    data: { 'model': model },
-        //});
+       
+        console.log(model);        
         model.OptionListstring = JSON.stringify(model.OptionList);
 
         $.ajax({

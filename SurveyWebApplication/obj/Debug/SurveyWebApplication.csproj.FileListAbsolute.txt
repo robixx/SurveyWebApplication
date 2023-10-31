@@ -52,3 +52,4 @@ D:\Practice Project\SurveyWebApplication\SurveyWebApplication\bin\Microsoft.Owin
 D:\Practice Project\SurveyWebApplication\SurveyWebApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Practice Project\SurveyWebApplication\SurveyWebApplication\obj\Debug\SurveyWebApplication.dll
 D:\Practice Project\SurveyWebApplication\SurveyWebApplication\obj\Debug\SurveyWebApplication.pdb
+D:\Practice Project\SurveyWebApplication\SurveyWebApplication\obj\Debug\SurveyWebApplication.csprojResolveAssemblyReference.cache

@@ -10,9 +10,8 @@ namespace SurveyWebApplication.ModelViewInfo
 
         [Key]
         public int QuestionId { get; set; }
-        public string QuestionTitle { get; set; }
-        public int SetId { get; set; }
-        public string SetName { get; set; }
+        public string QuestionTitle { get; set; }     
+ 
         public int OptionTypeId { get; set; }
         public string OptionTypeName { get; set; }
     }

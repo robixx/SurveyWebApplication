@@ -58,21 +58,21 @@ namespace SurveyWebApplication.Controllers
         {
             
             string Title = model.QuestionTitle;
-            string setid = model.SetId.ToString();
-            string OptionTypeId = model.OptionTypeId.ToString();
+           
+           
             string createby = "";
             string updateby = "";
             DateTime CreateDate = DateTime.Now;
             DateTime UpdateDate = Convert.ToDateTime("1900-01-01");
             string Status = "";
-            if (Title == null && setid == "0" && OptionTypeId == "0")
+            if (Title == null  )
             {
 
             }
             else
             {
                 var databaseConnection = new DatabaseConnection();
-                var valueadd = databaseConnection.CreateQuestion(Title, setid, OptionTypeId, createby, updateby, CreateDate, UpdateDate, Status);
+                var valueadd = databaseConnection.CreateQuestion(Title, createby, updateby, CreateDate, UpdateDate, Status);
                 TempData["massage"] = valueadd;
                 return RedirectToAction("QuestionTitleList");
             }
