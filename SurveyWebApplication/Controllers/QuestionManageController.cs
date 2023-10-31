@@ -62,8 +62,27 @@ namespace SurveyWebApplication.Controllers
         [HttpPost]
         public JsonResult QuestionCreate(Question model)
         {
-            model.OptionList = JsonConvert.DeserializeObject<List<Options>>(model.OptionListstring);
 
+            var databaseConnection = new DatabaseConnection();
+            string OptionTypeId = (model.OptionTypeId).ToString();
+             string createby = "";
+            string updateby = "";
+            DateTime CreateDate =DateTime.Now;
+            DateTime UpdateDate = Convert.ToDateTime("1900-01-01");
+            string Status = "";        
+          
+             model.OptionList = JsonConvert.DeserializeObject<List<Options>>(model.OptionListstring);
+             foreach (var item in model.OptionList)
+             {
+                 string QuestionId = (item.QuestionId).ToString();
+                 string opId = (item.OptionTypeId).ToString();
+                 string OptionName = item.OptionName;
+                 string IsActive = (item.IsActive).ToString();
+                 string IsCorrect = (item.IsCorrect).ToString();
+                 var valueadd = databaseConnection.QuestionOptionCreate(QuestionId, opId, OptionName, IsActive, IsCorrect, createby, updateby, CreateDate, UpdateDate, Status);
+             }
+
+             //var save = databaseConnection.CreateQuestion(string QuestionTitle,  string OptionTypeId, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status);
             return Json(model, JsonRequestBehavior.AllowGet);
            // return RedirectToAction("QuestionSet", "QuestionSets");
         }

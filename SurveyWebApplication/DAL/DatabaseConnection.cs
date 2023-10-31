@@ -49,7 +49,7 @@ namespace SurveyWebApplication.DAL
 
         }
 
-
+       
         public List<OptionType> GetAllOptionType()
         {
 
@@ -135,7 +135,7 @@ namespace SurveyWebApplication.DAL
                 connect.Open();
 
 
-                string query = "SELECT a.QuestionId, a.QuestionTitle,a.SetId,c.OptionTypeName,c.OptionTypeId,b.SetName FROM Question a left join OptionType c on a.OptionTypeId = c.OptionTypeId left join QuestionSet b on a.SetId=b.SetId";
+                string query = "SELECT QuestionId, QuestionTitle FROM Question";
                 SqlCommand command = new SqlCommand(query, connect);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -145,11 +145,9 @@ namespace SurveyWebApplication.DAL
                         QuestionManage ques = new QuestionManage
                         {
                             QuestionId = Convert.ToInt32(reader["QuestionId"]),
-                            QuestionTitle = reader["QuestionTitle"].ToString(),
-                            SetId = Convert.ToInt32(reader["SetId"]),
-                            OptionTypeName = reader["OptionTypeName"].ToString(),
-                            OptionTypeId = Convert.ToInt32(reader["OptionTypeId"]),
-                            SetName = reader["SetName"].ToString(),
+                            QuestionTitle = reader["QuestionTitle"].ToString(),                           
+                           
+                            
 
                         };
 
@@ -164,20 +162,19 @@ namespace SurveyWebApplication.DAL
 
 
 
-        public string CreateQuestion(string QuestionTitle, string SetId, string OptionTypeId, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
+        public string CreateQuestion(string QuestionTitle,  string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
         {
 
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
 
-                string sql = "INSERT INTO Question (QuestionTitle, SetId, OptionTypeId, CreateBy, UpdateBy, CreateDate, UpdateDate, Status) VALUES (@QuestionTitle, @SetId, @OptionTypeId, @createby, @updateby, @CreateDate, @UpdateDate, @Status)";
+                string sql = "INSERT INTO Question (QuestionTitle,  CreateBy, UpdateBy, CreateDate, UpdateDate, Status) VALUES (@QuestionTitle,  @createby, @updateby, @CreateDate, @UpdateDate, @Status)";
 
                 using (SqlCommand command = new SqlCommand(sql, connect))
                 {
-                    command.Parameters.AddWithValue("@QuestionTitle", QuestionTitle);
-                    command.Parameters.AddWithValue("@SetId", SetId);
-                    command.Parameters.AddWithValue("@OptionTypeId", OptionTypeId);
+                    command.Parameters.AddWithValue("@QuestionTitle", QuestionTitle);                   
+               
                     command.Parameters.AddWithValue("@CreateBy", createby);
                     command.Parameters.AddWithValue("@UpdateBy", updateby);
                     command.Parameters.AddWithValue("@CreateDate", CreateDate);
@@ -232,7 +229,7 @@ namespace SurveyWebApplication.DAL
 
         }
 
-        public string QuestionCreate(string QuestionId, string OptionTypeId, string OptionName, string IsCorrect, string IsActive, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
+        public string QuestionOptionCreate(string QuestionId, string OptionTypeId, string OptionName, string IsActive, string IsCorrect, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
         {
 
             using (SqlConnection connect = new SqlConnection(connection))
@@ -272,6 +269,36 @@ namespace SurveyWebApplication.DAL
             }
         }
 
+
+
+        public List<SetManage> GetAllSetManage()
+        {
+            List<SetManage> AllSetList = new List<SetManage>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                string query = "SELECT a.SetManageId, a.QuestionId,b.QuestionTitle, a.SetId, c.SetName FROM SetManage a left join Question b on a.QuestionId=b.QuestionId left join QuestionSet c on a.SetId=c.SetId ";
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AllSetList.Add(new SetManage
+                        {
+                            QuestionId = Convert.ToInt32(reader["QuestionId"]),
+                            QuestionTitle = reader["QuestionTitle"].ToString(),
+                            SetId = Convert.ToInt32(reader["SetId"]),
+                            SetName = reader["SetName"].ToString(),
+
+
+                        });
+                    }
+                }
+                return AllSetList;
+            }
+        }
 
         //public List<QuestionSet> GetQuestionSet()
         //{
