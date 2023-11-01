@@ -10,8 +10,7 @@ namespace SurveyWebApplication.ModelViewInfo
     {
         [Key]
         public int SetManageId { get; set; }
-        public int SetId { get; set; }
-
+        public int SetId { get; set; }      
         public string SetName { get; set; }
         public List<SetManage> SetManageList { get; set; }
 

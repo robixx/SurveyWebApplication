@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SurveyWebApplication.Models.SetManage>
+﻿@model IEnumerable<SurveyWebApplication.ModelViewInfo.SetManageInfo>
 
 @{
     ViewBag.Title = "SetManageList";
@@ -8,10 +8,49 @@
 <style>
     .vertical {
         border-left: 2px solid black;
-        height: 500px;
+        height: 300px;
         position: absolute;
         left: 50%;
     }
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+        margin: 0;
+        padding: 0;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .sep {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sepText {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+    }
+
+        .sepText::before,
+        .sepText::after {
+            content: '';
+            flex: 1;
+            width: 1px;
+            background: currentColor;
+            /* matches font color */
+            margin: .25em;
+        }
 </style>
 
 
@@ -23,17 +62,31 @@
 
     <div class="card shadow-lg p-3 mb-5 bg-light rounded">
         <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-5 ">
                 <h4 class="text-center">Question List</h4><hr />
                 <form id="quset" method="post">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="email">Set Name</label>
+                        </div>
+                        <div class="col-md-5">
+                            <input id="setName" class="easyui-combobox " style="width: 275px; height: 35px;" name="SetId" placeholder="Select Option Type" data-options="valueField:'SetId',textField:'SetName',method:'Get', url:'SetList/Question'">
+
+                        </div>
+                    </div><br />
 
                     @foreach (var item in ViewBag.JsonData)
                     {
                         <div class="row">
                             <div class="col-md-2">
-                                <input class=" easyui-checkbox">
+
+                                @*<input class="checkdata easyui-checkbox" type="checkbox" id="check1" name="IsActive">*@
+                                <input type="checkbox" name="IsActive" id="check1+@item.QuestionId" class="easyui-checkbox checkdata">
+
                             </div>
                             <div class="col-md-10">
+                                <input id="qsetid" name="@item.QuestionId" value="@item.QuestionId" type="hidden" class="quesId">
                                 <label class="textbox-label textbox-label-top">@item.QuestionTitle</label>
                             </div>
                         </div>
@@ -51,45 +104,52 @@
                 </form>
 
             </div>
-            <div class="vertical"></div>
+            <div class="col-md-1 sep">
+                <span class="sepText">
+                    OR
+                </span>
+            </div>
             <div class="col-md-6">
-                <h4 class="text-center">Set List</h4><hr />
-                <div class="easyui-accordion" >
-                    @foreach (var type in ViewBag.Data)
-                    {
-                        <div title="@type.SetName" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
-                           @if (@type.SetId == @type.SetManageList[0].SetId)
-                           {
-                               <div class="row">
-                                   <label class="textbox-label textbox-label-top">@type.SetManageList[0].QuestionTitle</label>
-                               </div>
-                           }
-                        </div>
+                <form id="SetChange" method="post">
+                    <div class="row">
+                        <h4 class="col-md-9 text-center">Set List</h4>
+                        <div class=" col-md-3 ">
+                            <button type="submit" class="easyui-linkbutton c1" id="btnSetChange" style="width:100px">Set Remove</button>
 
-                    }
-                    @*<div title="DataGrid" style="padding:10px" data-options="
-                        selected:true,
-                        tools:[{
-                            iconCls:'icon-reload',
-                            handler:function(){
-                                $('#dg').datagrid('reload');
-                            }
-                        }]">
-                                <table id="dg" class="easyui-datagrid"
-                                       data-options="url:'datagrid_data1.json',method:'get',fit:true,fitColumns:true,singleSelect:true">
-                                    <thead>
-                                        <tr>
-                                            <th data-options="field:'itemid',width:80">Item ID</th>
-                                            <th data-options="field:'productid',width:100">Product ID</th>
-                                            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
-                                            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
-                                            <th data-options="field:'attr1',width:150">Attribute</th>
-                                            <th data-options="field:'status',width:50,align:'center'">Status</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>*@
-                </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="easyui-accordion">
+                        @foreach (var set in Model)
+                        {
+
+                            <div title="@set.SetName" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+
+                                @foreach (var item in @set.SetManageList)
+                                {
+                                    <div class="row" style="  padding-left: 10px;">
+                                        <div class="col-md-1">
+                                            <input type="checkbox" name="IsCheck" id="check+@item.QuestionId" class="easyui-checkbox setdata">
+                                        </div>
+                                        <div class="col-md-11">
+                                            <input id="hiddenId" name="SetManageId" value="@item.QuestionId" type="text" class="SetId">
+                                            <label class="textbox-label textbox-label-top">@item.QuestionTitle</label>
+
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+
+
+                        }
+
+                    </div>
+                  
+
+                </form>
+
             </div>
 
         </div>
@@ -99,3 +159,71 @@
     </div>
 
 </div>
+<script>
+
+
+    $('#setName').combobox({
+        prompt: 'Select an Set',
+        valueField: 'SetId',
+        textField: 'SetName',
+        url: 'SetList/SetManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+
+    $('#btnsubmit').click(function (e) {
+        e.preventDefault();
+
+        var isCorrectEL = document.getElementsByName("IsActive");
+        var qid = document.getElementsByClassName("quesId");
+        //url: 'SetAdd/SetManage'
+        var model = {
+            SetId: $('#setName').val(),
+            list: []
+        };
+
+        model.list = [];
+
+        for (let i = 0; i < qid.length; i++) {
+
+            var Id = qid[i].value;
+            var ischecked = isCorrectEL[i].checked;
+
+            if (ischecked) {
+                model.list.push({
+                    QuestionId: Id,
+                    IsActive: ischecked
+                });
+            }
+
+
+        }
+
+        console.log(model);
+        model.Connectinglist = JSON.stringify(model.list);
+        $.ajax({
+            type: "POST",
+            url: "SetAdd/SetManage",
+            data: model,
+            dataType: 'json',
+            success: function () {
+                //success code here
+            },
+            error: function () {
+                //error code here
+            }
+        });
+
+    });
+
+
+
+    $('#btnSetChange').click(function (e) {
+        e.preventDefault();
+
+    });
+
+
+</script>
