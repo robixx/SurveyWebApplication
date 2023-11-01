@@ -132,7 +132,9 @@
                                             <input type="checkbox" name="IsCheck" id="check+@item.QuestionId" class="easyui-checkbox setdata">
                                         </div>
                                         <div class="col-md-11">
-                                            <input id="hiddenId" name="SetManageId" value="@item.QuestionId" type="text" class="SetId">
+                                            <input id="hiddenQId" name="SetManageId" value="@item.QuestionId" type="hidden" class="QuestionId">
+                                            <input id="hiddenId" name="SetManageId" value="@item.SetId" type="hidden" class="SetId">
+
                                             <label class="textbox-label textbox-label-top">@item.QuestionTitle</label>
 
                                         </div>
@@ -222,6 +224,40 @@
 
     $('#btnSetChange').click(function (e) {
         e.preventDefault();
+      
+        var isCheckEL = document.getElementsByName("IsCheck");
+        var SetQuestionId = document.getElementsByClassName("QuestionId");
+        var SetNameId = document.getElementsByClassName("SetId");
+        var data = [];
+        for (let k = 0; k < isCheckEL.length; k++) {
+
+            var isactive = isCheckEL[k].checked;
+
+            if (isactive) {
+                data.push( {
+                    SetId: SetNameId[k].value,
+                    QuestionId: SetQuestionId[k].value,
+
+                });
+
+            }
+        }
+        debugger;
+        console.log(data);
+        data.Connectingstringlist = JSON.stringify(data);
+
+        $.ajax({
+            type: "POST",
+            url: "SetChange/SetManage",
+            data: model,
+            dataType: 'json',
+            success: function () {
+                //success code here
+            },
+            error: function () {
+                //error code here
+            }
+        });
 
     });
 
