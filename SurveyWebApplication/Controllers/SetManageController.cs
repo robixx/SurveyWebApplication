@@ -88,5 +88,27 @@ namespace SurveyWebApplication.Controllers
 
 
 
+        [HttpPost]
+        public ActionResult SetChange(string Connectingstringlist)
+        {
+            var databaseConnection = new DatabaseConnection();
+
+            var datalist = JsonConvert.DeserializeObject<List<SetChangeInfo>>(Connectingstringlist);
+            foreach (var item in datalist)
+            {
+                string QuestionId = (item.QuestionId).ToString();
+                string SetId = (item.SetId).ToString();
+
+                //var result = databaseConnection.SetManageAdd(SetId, QuestionId);
+            }
+
+            return RedirectToAction("SetManageList", "SetManage");
+
+        }
+
+
+
+
+
     }
 }

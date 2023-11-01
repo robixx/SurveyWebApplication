@@ -183,6 +183,7 @@
     <Compile Include="ModelViewInfo\QuestionManage.cs" />
     <Compile Include="ModelViewInfo\QuestionSetManage.cs" />
     <Compile Include="ModelViewInfo\QuestionViewInfo.cs" />
+    <Compile Include="ModelViewInfo\SetChangeInfo.cs" />
     <Compile Include="ModelViewInfo\SetManageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
