@@ -229,6 +229,33 @@ namespace SurveyWebApplication.DAL
 
         }
 
+        public List<QuestionViewModel> GetAllQuestionView()
+        {
+            List<QuestionViewModel> AllQuestionList = new List<QuestionViewModel>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                string query = "SELECT  a.QuestionId, a.QuestionTitle,SetId = ISNULL(b.SetId, '0'),SetManageQuestionId = ISNULL(b.QuestionId, '0') into #tbl01 FROM  Question a LEFT JOIN SetManage b ON   a.QuestionId = b.QuestionId select  * from #tbl01 where SetId=0";
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AllQuestionList.Add(new QuestionViewModel
+                        {
+                            QuestionId = Convert.ToInt32(reader["QuestionId"]),
+                            QuestionTitle = reader["QuestionTitle"].ToString(),
+
+                        });
+                    }
+                }
+                return AllQuestionList;
+            }
+        }
+
+
         public string QuestionOptionCreate(string QuestionId, string OptionTypeId, string OptionName, string IsActive, string IsCorrect, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
         {
 
@@ -287,6 +314,7 @@ namespace SurveyWebApplication.DAL
                     {
                         AllSetList.Add(new SetManage
                         {
+                            SetManageId = Convert.ToInt32(reader["SetManageId"]),
                             QuestionId = Convert.ToInt32(reader["QuestionId"]),
                             QuestionTitle = reader["QuestionTitle"].ToString(),
                             SetId = Convert.ToInt32(reader["SetId"]),
@@ -299,6 +327,39 @@ namespace SurveyWebApplication.DAL
                 return AllSetList;
             }
         }
+
+
+        public string SetManageAdd(string SetId, string QuestionId)
+        {
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+
+                string sql = "INSERT INTO SetManage (SetId, QuestionId) VALUES (@SetId,  @QuestionId)";
+
+                using (SqlCommand command = new SqlCommand(sql, connect))
+                {
+                    command.Parameters.AddWithValue("@SetId", SetId);
+                    command.Parameters.AddWithValue("@QuestionId", QuestionId);                   
+
+                    var rowcount = command.ExecuteNonQuery();
+                    if (rowcount > 0)
+                    {
+                        return "Data inserted successfully!";
+
+                    }
+                    else
+                    {
+                        return "Data inserted Failed!";
+
+                    }
+
+                }
+
+
+            }
+        }
+
 
         //public List<QuestionSet> GetQuestionSet()
         //{
