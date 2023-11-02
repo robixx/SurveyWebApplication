@@ -25,6 +25,9 @@
         .cards:hover {
             box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
         }
+    .datagrid {
+        width: 702px !important;
+    }
 </style>
 
 
@@ -36,19 +39,17 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class=" cards " style="width: 80rem;">
+            <div class=" cards " style="width: 70rem;">
                 <div class="text-right">
                     <a href="@Url.Action("QuestionCreate", "Question")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Create</a>
 
                 </div>
-                <div class="card-body" style="width: 95rem;">
+                <div class="card-body" style="width: 70rem;">
                     <table id="tbl" class="easyui-datagrid" title="Basic Question Set" data-options="method:'get'">
                         <thead>
                             <tr>
-                                <th data-options="field:'QuestionTitle',width:'500px'"><b>Question Title</b></th>
-                                
+                                <th data-options="field:'QuestionTitle',width:'600px'"><b>Question Title</b></th>                              
                                
-
                             </tr>
                         </thead>
                     </table>

@@ -79,30 +79,42 @@ namespace SurveyWebApplication.Controllers
             foreach (var item in model.list)
             {
                 string QuestionId = (item.QuestionId).ToString();
-                var result = databaseConnection.SetManageAdd(SetId, QuestionId);
+                if (QuestionId == "0" || SetId == "0")
+                {
+                    TempData["notify"] = "Please Select Set Name";
+                    return View();
+                }
+                else
+                {
+                    var result = databaseConnection.SetManageAdd(SetId, QuestionId);
+
+                }
             }
 
-            return RedirectToAction("SetManageList", "SetManage");
+            var Success = true;
 
+            return View("SetManageList/SetManage", Success);
         }
 
 
 
         [HttpPost]
-        public ActionResult SetChange(string Connectingstringlist)
+        public ActionResult SetChange(SetChangeInfo data)
         {
             var databaseConnection = new DatabaseConnection();
+           
+                data.datalist = JsonConvert.DeserializeObject<List<RemoveList>>(data.Connectingstringlist);
+                foreach (var item in data.datalist)
+                {
+                    string QuestionId = (item.QuestionId).ToString();
+                    string SetId = (item.SetId).ToString();
 
-            var datalist = JsonConvert.DeserializeObject<List<SetChangeInfo>>(Connectingstringlist);
-            foreach (var item in datalist)
-            {
-                string QuestionId = (item.QuestionId).ToString();
-                string SetId = (item.SetId).ToString();
+                    var result = databaseConnection.SetRemove(SetId, QuestionId);
+                }
 
-                //var result = databaseConnection.SetManageAdd(SetId, QuestionId);
-            }
+            var Success=true;
 
-            return RedirectToAction("SetManageList", "SetManage");
+            return View("SetManageList/SetManage", Success);
 
         }
 

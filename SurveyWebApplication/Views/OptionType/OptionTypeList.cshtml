@@ -28,6 +28,11 @@
         .cards:hover {
             box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
         }
+
+
+  .datagrid {
+        width: 702px !important;
+    }
 </style>
 
 
@@ -40,21 +45,28 @@
     <div class="row">
         <div class="col-md-12">
             <div class=" cards " style="width: 80rem;">
-                <div class="text-right">
-                    <a href="@Url.Action("OptionTypeCreate", "OptionType")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Type Create</a>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="text-right">
+                            <a href="@Url.Action("OptionTypeCreate", "OptionType")" class="easyui-linkbutton " data-options="iconCls:'icon-add'">Type Create</a>
 
-                </div>
-                <div class="card-body" style="width: 95rem;">
-                    <table id="tbl" class="easyui-datagrid" title="Basic OptionType Name" data-options="method:'get'">
-                        <thead>
-                            <tr>
-                                <th data-options="field:'OptionTypeName',width:'50px'"><b>OptionType Name</b></th>
-                                <th data-options="field:'CreateDate',width:'200px'"><b>CreateDate</b></th>
+                        </div>
+                        <div class="card-body" style="width: 80rem;">
+                            <table id="tbl" class="easyui-datagrid" title="Basic OptionType Name" data-options="method:'get'">
+                                <thead>
+                                    <tr>
+                                        <th data-options="field:'OptionTypeName',width:'500px'"><b>OptionType Name</b></th>
+                                        <th data-options="field:'CreateDate',width:'200px'"><b>CreateDate</b></th>
 
-                            </tr>
-                        </thead>
-                    </table>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
                 </div>
+               
             </div>
         </div>
     </div>
