@@ -183,6 +183,7 @@
     <Compile Include="ModelViewInfo\QuestionManage.cs" />
     <Compile Include="ModelViewInfo\QuestionSetManage.cs" />
     <Compile Include="ModelViewInfo\QuestionViewInfo.cs" />
+    <Compile Include="ModelViewInfo\RemoveList.cs" />
     <Compile Include="ModelViewInfo\SetChangeInfo.cs" />
     <Compile Include="ModelViewInfo\SetManageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -729,6 +730,8 @@
     <Content Include="Content\EasyUi\metro\tree.css" />
     <Content Include="Content\EasyUi\metro\validatebox.css" />
     <Content Include="Content\EasyUi\metro\window.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\toastr.min.js" />
     <Content Include="Scripts\CustomQuestionCreate.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\jquery.easyui.min.js" />

@@ -51,6 +51,7 @@
             /* matches font color */
             margin: .25em;
         }
+    
 </style>
 
 
@@ -59,7 +60,10 @@
         <h1>Set Manage</h1>
     </div>
 
-
+    @if (TempData["notify"] != null)
+    {
+        <div id="nofigy"class="alert alert-danger" ><h2>@TempData["notify"]</h2></div>
+    }
     <div class="card shadow-lg p-3 mb-5 bg-light rounded">
         <div class="row">
             <div class="col-md-5 ">
@@ -161,6 +165,8 @@
     </div>
 
 </div>
+
+
 <script>
 
 
@@ -180,6 +186,13 @@
 
         var isCorrectEL = document.getElementsByName("IsActive");
         var qid = document.getElementsByClassName("quesId");
+        var set = $('#setName').val();
+        debugger;
+        if (set == '') {
+           
+                alert("Pelase Select SetName");
+            
+        }
         //url: 'SetAdd/SetManage'
         var model = {
             SetId: $('#setName').val(),
@@ -210,11 +223,16 @@
             url: "SetAdd/SetManage",
             data: model,
             dataType: 'json',
-            success: function () {
-                //success code here
+            success: function (response) {
+                debugger;
+                if (response == "Success") {
+                    window.location.reload();
+                    $.get('SetManageList/SetManage', { json: JSON.stringify(Success) });
+                }
             },
             error: function () {
                 //error code here
+                window.location.reload();
             }
         });
 
@@ -228,13 +246,18 @@
         var isCheckEL = document.getElementsByName("IsCheck");
         var SetQuestionId = document.getElementsByClassName("QuestionId");
         var SetNameId = document.getElementsByClassName("SetId");
-        var data = [];
+        var data = {
+            SetId: $('#hiddenQId').val(),
+            QuestionId: $('hiddenId').val(),
+            datalist:[]
+        };
+        data.datalist = [];
         for (let k = 0; k < isCheckEL.length; k++) {
 
             var isactive = isCheckEL[k].checked;
 
             if (isactive) {
-                data.push( {
+                data.datalist.push({
                     SetId: SetNameId[k].value,
                     QuestionId: SetQuestionId[k].value,
 
@@ -244,18 +267,27 @@
         }
         debugger;
         console.log(data);
-        data.Connectingstringlist = JSON.stringify(data);
+        data.Connectingstringlist = JSON.stringify(data.datalist);
 
         $.ajax({
             type: "POST",
             url: "SetChange/SetManage",
-            data: model,
+            data: data,
             dataType: 'json',
-            success: function () {
-                //success code here
+          
+            success: function (response) {
+                debugger;
+                if (response == "Success") {
+                    window.location.reload();
+                    $.get('SetManageList/SetManage', { json: JSON.stringify(Success) });
+                }
+               
+                
             },
             error: function () {
                 //error code here
+                debugger;
+                window.location.reload();
             }
         });
 

@@ -8,6 +8,7 @@ namespace SurveyWebApplication.ModelViewInfo
     public  class SetChangeInfo
     {
         public int SetId { get; set; }
+        public int QuestionId { get; set; }
         public List<RemoveList> datalist { get; set; }
         public string Connectingstringlist { get; set; }
     }

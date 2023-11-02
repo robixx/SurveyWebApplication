@@ -236,7 +236,7 @@ namespace SurveyWebApplication.DAL
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
-                string query = "SELECT  a.QuestionId, a.QuestionTitle,SetId = ISNULL(b.SetId, '0'),SetManageQuestionId = ISNULL(b.QuestionId, '0') into #tbl01 FROM  Question a LEFT JOIN SetManage b ON   a.QuestionId = b.QuestionId select  * from #tbl01 where SetId=0";
+                string query = "select QuestionId,QuestionTitle from Question where QuestionId  not in (select QuestionId from SetManage)";
                 SqlCommand command = new SqlCommand(query, connect);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -360,6 +360,36 @@ namespace SurveyWebApplication.DAL
             }
         }
 
+        public bool SetRemove(string SetId, string QuestionId)
+        {
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+
+                string sql = "DELETE from SetManage where SetId=@SetId and QuestionId=@QuestionId ";
+
+                using (SqlCommand command = new SqlCommand(sql, connect))
+                {
+                    command.Parameters.AddWithValue("@SetId", SetId);
+                    command.Parameters.AddWithValue("@QuestionId", QuestionId);
+
+                    var rowcount = command.ExecuteNonQuery();
+                    if (rowcount > 0)
+                    {
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+
+                    }
+
+                }
+
+
+            }
+        }
 
         //public List<QuestionSet> GetQuestionSet()
         //{
