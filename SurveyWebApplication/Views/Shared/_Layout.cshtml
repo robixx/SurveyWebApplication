@@ -43,6 +43,8 @@
                 <li><a href="@Url.Action("SetManageList", "SetManage")" class="nav-link px-2 link-dark">SetManage</a></li>
                 <li><a href="@Url.Action("QuestionTitleList", "Question")" class="nav-link px-2 link-dark">Question</a></li>
                 <li><a href="@Url.Action("QuestionCreate", "QuestionManage")" class="nav-link px-2 link-dark">QuestionManage</a></li>
+                <li><a href="@Url.Action("SetList", "SurveyManage")" class="nav-link px-2 link-dark">Set</a></li>
+                @*<li><a href="@Url.Action("SurveyQuestion", "SurveyManage")" class="nav-link px-2 link-dark">SurveyQuestion</a></li>*@
                 
             </ul>
 
@@ -59,10 +61,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+      
+    <footer class="footer mt-auto py-3 bg-light fixed-bottom">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </div>
+    </footer>
     
    
 </body>

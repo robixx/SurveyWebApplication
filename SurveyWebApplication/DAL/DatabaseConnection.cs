@@ -209,7 +209,7 @@ namespace SurveyWebApplication.DAL
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
-                string query = "SELECT QuestionId,QuestionTitle  FROM Question ";
+                string query = "SELECT QuestionId,QuestionTitle  FROM Question where QuestionId in (select QuestionId from SetManage) ";
                 SqlCommand command = new SqlCommand(query, connect);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -391,117 +391,75 @@ namespace SurveyWebApplication.DAL
             }
         }
 
-        //public List<QuestionSet> GetQuestionSet()
-        //{
-        //    List<QuestionSet> getQqestionSet = new List<QuestionSet>();
+        public List<SurveyViewInfo> GetAllSurveyList( string SetId)
+        {
+            List<SurveyViewInfo> getQqestionSet = new List<SurveyViewInfo>();
 
-        //    using (SqlConnection connect = new SqlConnection(connection))
-        //    {
-        //        connect.Open();
-        //        string query = "SELECT SetId, SetName,Options,Options1,Options2,Options3,InActive FROM QuestionSet ";
-        //        SqlCommand command = new SqlCommand(query, connect);
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId where d.SetId="+@SetId;
+                SqlCommand command = new SqlCommand(query, connect);
 
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                getQqestionSet.Add(new QuestionSet
-        //                {
-        //                    SetId = Convert.ToInt32(reader["SetId"]),
-        //                    SetName = reader["SetName"].ToString(),
-        //                    Options = reader["Options"].ToString(),
-        //                    Options1 = reader["Options1"].ToString(),
-        //                    Options2 = reader["Options2"].ToString(),
-        //                    Options3 = reader["Options3"].ToString(),
-        //                    InActive = Convert.ToBoolean(reader["InActive"])
-
-        //                });
-        //            }
-        //        }
-        //        return getQqestionSet;
-        //    }
-        //}
-
-
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        getQqestionSet.Add(new SurveyViewInfo
+                        {
+                            QuestionId = Convert.ToInt32(reader["QuestionId"]),
+                            QuestionTitle = reader["QuestionTitle"].ToString(),
+                            OptionId = Convert.ToInt32(reader["OptionId"]),
+                            OptionName = reader["OptionName"].ToString(),
+                            OptionTypeId = Convert.ToInt32(reader["OptionTypeId"]),
+                            OptionTypeName = reader["OptionTypeName"].ToString(),
+                            IsCorrect = Convert.ToBoolean(reader["IsCorrect"]),
+                            SetId = Convert.ToInt32(reader["SetId"])
+                        });
+                    }
+                }
+                return getQqestionSet;
+            }
+        }
 
 
+        public string AnswerSubmit(string CustomerId, string QuestionId, string OptionId, string OptionName, string QuestionTypeId, string CreateBy, DateTime CreateDate)
+        {
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
 
-        //public List<QuestionSetManage> GetQuestionAnswer()
-        //{
-        //    List<QuestionSetManage> Question = new List<QuestionSetManage>();
+                string sql = "INSERT INTO QuestionAnswer (CustomerId, QuestionId,OptionId,OptionName,QuestionTypeId,CreateBy,CreateDate) VALUES (@CustomerId, @QuestionId,@OptionId,@OptionName,@QuestionTypeId,@CreateBy,@CreateDate)";
 
-        //    using (SqlConnection connect = new SqlConnection(connection))
-        //    {
-        //        connect.Open();
-        //        string query = "select a.QuestionId , a.QuestionTitle,SetName=isnull(c.SetName,''),Options= isnull(c.Options,''), Options1=isnull(c.Options1,''),Options2= isnull(c.Options2,''), Options3=isnull(c.Options3,''), b.OptionTypeName from Questionnaires a left join OptionType b on a.OptionId=b.OptionId left join QuestionSet c on a.QuestionId=c.QuestionId";
-        //        SqlCommand command = new SqlCommand(query, connect);
-
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                Question.Add(new QuestionSetManage
-        //                {
-        //                    QuestionId = Convert.ToInt32(reader["QuestionId"]),
-        //                    SetName = reader["SetName"].ToString(),
-        //                    QuestionTitle = reader["QuestionTitle"].ToString(),
-        //                    Options = reader["Options"].ToString(),
-        //                    Options1 = reader["Options1"].ToString(),
-        //                    Options2 = reader["Options2"].ToString(),
-        //                    Options3 = reader["Options3"].ToString(),
-        //                    OptionTypeName = reader["OptionTypeName"].ToString()
+                using (SqlCommand command = new SqlCommand(sql, connect))
+                {
+                    command.Parameters.AddWithValue("@CustomerId", CustomerId);
+                    command.Parameters.AddWithValue("@QuestionId", QuestionId);
+                    command.Parameters.AddWithValue("@OptionId", OptionId);
+                    command.Parameters.AddWithValue("@OptionName", OptionName);
+                    command.Parameters.AddWithValue("@QuestionTypeId", QuestionTypeId);
+                    command.Parameters.AddWithValue("@CreateBy", CreateBy);
+                    command.Parameters.AddWithValue("@CreateDate", CreateDate);
 
 
-        //                });
-        //            }
-        //        }
-        //        return Question;
-        //    }
-        //}
+                    var rowcount = command.ExecuteNonQuery();
+                    if (rowcount > 0)
+                    {
+                        return "Data inserted successfully!";
+
+                    }
+                    else
+                    {
+                        return "Data inserted Failed!";
+
+                    }
+
+                }
 
 
+            }
+        }
 
 
-
-        //public List<Option> GetQuestionAnswerss()
-        //{
-        //    List<Option> Question = new List<Option>();
-
-        //    using (SqlConnection connect = new SqlConnection(connection))
-        //    {
-        //        connect.Open();
-        //        string query = "select a.SetName, a.TypeofQuestion,a.Options,a.Options1, a.Options2, a.Options3,OptionTypeName=isnull(b.OptionTypeName,'') from QuestionSet a left join OptionType b on a.TypeofQuestion=b.OptionId";
-        //        SqlCommand command = new SqlCommand(query, connect);
-
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-
-        //                List<OptionList> obj = new List<OptionList>();
-
-        //                var n = new OptionList();
-        //                n.Options = reader["Options"].ToString();
-        //                n.Options1 = reader["Options1"].ToString();
-        //                n.Options2 = reader["Options2"].ToString();
-        //                n.Options3 = reader["Options3"].ToString();
-        //                obj.Add(n);
-
-        //                Question.Add(new Option
-        //                {
-
-        //                    SetName = reader["SetName"].ToString(),
-
-        //                    OptionList = obj,
-
-        //                    OptionTypeName = reader["OptionTypeName"].ToString()
-
-
-        //                });
-        //            }
-        //        }
-        //        return Question;
-        //    }
-        //}
     }
 }

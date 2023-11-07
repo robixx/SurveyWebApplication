@@ -9,14 +9,16 @@ namespace SurveyWebApplication.Models
     {
 
         public int AnswerId { get; set; }
-        public string QuestionTitle { get; set; }
-        public string TypeofQuestion { get; set; }
-        public string Option1 { get; set; }
-        public string option2 { get; set; }
-        public string option3 { get; set; }
-        public string option4 { get; set; }
-        public string TextOption { get; set; }
         public string CustomerId { get; set; }
+        public string QuestionId { get; set; }
+        public string QuestionTypeId { get; set; }
+        public string OptionId { get; set; }
+        public string OptionName { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+       
+      
+ 
 
     }
 }

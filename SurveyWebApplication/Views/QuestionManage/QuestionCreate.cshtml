@@ -65,7 +65,7 @@
 
         var optionType = document.getElementById('optionNames').value;
         var inputtype = optionType == "1" ? "radio" : "checkbox";
-        
+
         var optionHtml = '<div class="row"><div class="col-md-3"></div><div class="col-md-3"></div> <div class="col-md-2">' +
            ' <label class="textbox-label textbox-label-top" >Option:</label>' +
            '<input type="text" id="text1" class="easyui-textbox form-control dynamic-option" name="OptionName[' + i + ']" value="">' +
@@ -152,42 +152,55 @@
 
         //Serialize the form datas.
         e.preventDefault();
-        
-        var optionEl =  document.getElementsByClassName("dynamic-option");
+        debugger;
+        var optionValue = document.getElementById("optionNames").value;
+        var optionEl = document.getElementsByClassName("dynamic-option");
         var isCorrectEL = document.getElementsByClassName("IsCorrect");
-        
         var model = {
             QuestionId: $('#QuestionTitle').val(),
             OptionTypeId: $('#optionNames').val(),
             OptionList: []
 
         };
-        model.OptionList = [];
-        for (let i = 0; i < optionEl.length; i++) {
-            var optionName = optionEl[i].value;
-            var isCor = isCorrectEL[i].checked;
-            model.OptionList.push({
-                OptionName: optionName,
-                QuestionId: $('#QuestionTitle').val(),
-                OptionTypeId: $('#optionNames').val(),
-                IsCorrect: isCor,
-                IsActive:"true"
-            });
+
+        if (optionValue == 3)
+        {
+           
         }
-       
-        console.log(model);        
-        model.OptionListstring = JSON.stringify(model.OptionList);
+        else
+        {
+
+
+
+            model.OptionList = [];
+            for (let i = 0; i < optionEl.length; i++) {
+                var optionName = optionEl[i].value;
+                var isCor = isCorrectEL[i].checked;
+                model.OptionList.push({
+                    OptionName: optionName,
+                    QuestionId: $('#QuestionTitle').val(),
+                    OptionTypeId: $('#optionNames').val(),
+                    IsCorrect: isCor,
+                    IsActive: "true"
+                });
+            }
+
+            console.log(model);
+            model.OptionListstring = JSON.stringify(model.OptionList);
+        }
 
         $.ajax({
             type: "POST",
-            url:  "QuestionCreate/QuestionManage",
-            data:  model ,
+            url: "QuestionCreate/QuestionManage",
+            data: model,
             dataType: 'json',
-            success: function(){
+            success: function () {
                 //success code here
+                window.location.reload();
             },
-            error: function(){
+            error: function () {
                 //error code here
+                window.location.reload();
             }
         });
     });
