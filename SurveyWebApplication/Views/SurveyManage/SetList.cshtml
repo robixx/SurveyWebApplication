@@ -1,0 +1,39 @@
+﻿@model List<SurveyWebApplication.Models.QuestionSet>
+@{
+    ViewBag.Title = "SetList";
+}
+<style>
+    .padtop {
+        padding-top: 1.8rem !important;
+    }
+
+    .backcolor {
+        background: #dee2e6;
+    }
+
+        .backcolor:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+        }
+</style>
+
+<div class="container-fluid mt-2">
+    <div class="jumbotron">
+        <div class="row mt-2">
+            <h2 class="text-center">Set Wise Survey</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-2 mt-1">
+                    <div class="card shadow-lg p-1 mb-3  backcolor  text-center" style="height:100px;">
+                        <h2 class="padtop">
+                        <input id="hiddenSetId" name="@item.SetId" value="@item.SetId" type="hidden" class="SetId">
+                            <a href="@Url.Action("SurveyQuestion", "SurveyManage", new { SetId = @item.SetId })" class="btn btn-primary btn-sm">@item.SetName</a>
+                        </h2>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
