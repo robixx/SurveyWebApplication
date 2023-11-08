@@ -17,7 +17,7 @@ namespace SurveyWebApplication.Controllers
         public ActionResult SurveyQuestion()
         {
             var databaseConnection = new DatabaseConnection();
-            string setId = Request.QueryString["SetId"].ToString();
+            string setId =Request.QueryString["SetId"]==null?"": Request.QueryString["SetId"].ToString();
             List<SurveyViewInfo> questionlist = databaseConnection.GetAllSurveyList(setId);
 
             List<Question> newQuestionList = new List<Question>();
@@ -87,5 +87,55 @@ namespace SurveyWebApplication.Controllers
             }
             return View();
         }
+
+
+        [HttpGet]
+        public ActionResult Test()
+        {
+            var databaseConnection = new DatabaseConnection();
+            string setId = Request.QueryString["SetId"] == null ? "" : Request.QueryString["SetId"].ToString();
+            List<SurveyViewInfo> questionlist = databaseConnection.GetAllSurveyList01();
+
+            List<Question> newQuestionList = new List<Question>();
+            var idata = questionlist.Select(x => x.QuestionId).Distinct();
+            foreach (var item in idata)
+            {
+                var sdata = questionlist.Where(e => e.QuestionId == item).ToList();
+                Question info = new Question
+                {
+                    QuestionId = sdata[0].QuestionId,
+                    OptionTypeId = sdata[0].OptionTypeId,
+                    QuestionTitle = sdata[0].QuestionTitle,
+                    OptionList = new List<Options>()
+
+                };
+
+                foreach (var iitem in sdata)
+                {
+                    Options SetManageItem = new Options
+                    {
+                        OptionId = iitem.OptionId,
+                        OptionName = iitem.OptionName,
+                        OptionTypeId = iitem.OptionTypeId,
+                        IsCorrect = iitem.IsCorrect,
+                        AnsCount=iitem.AnsCount
+                    };
+                    info.OptionList.Add(SetManageItem);
+                }
+                newQuestionList.Add(info);
+            }
+            return View(newQuestionList);
+        }
+
+
+        [HttpGet]
+        //[Route("SurveyManage/ModalData/{id}")]
+        public JsonResult ModalData(int id)
+        {
+            int result = id;
+            return Json(result);
+        }
+
+
 	}
 }

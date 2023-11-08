@@ -4,9 +4,29 @@
     int k = 1;
 }
 
+<style>
+    .custom-accordion-button {
+        //-bs-accordion-btn-padding-x: 0.75rem !important;
+        vertical-align: middle !important;
+    }
 
-<div class="container-fluid mb-5 ">
-    <div class="jumbotron">
+    a {
+        text-decoration: none;
+    }
+    .custom-accordion-button {
+        background-color: #e7e9e7 !important;
+    }
+    .radiobutton  {
+        width: 25px !important;
+        height: 25px !important;
+    }
+    .checkbox {
+        width: 25px !important;
+        height: 25px !important;
+    }
+</style>
+<div class="container-fluid mb-5 bg-light ">
+    <div class="jumbotron ">
         <div class="row">
             <div class="col-md-3 pb-3">
                 <select class="easyui-combobox" id="CustomerId" label="Customer Name:" labelposition="top" style="width:100%;">
@@ -30,69 +50,150 @@
         <form id="Survey" method="post">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <div class="card shadow-lg p-1 mb-3 bg-light rounded">
-                    <div class="row">
-                        <h5>
-                            <input id="hiddenQtyId" name="@Model[i].OptionTypeId" value="@Model[i].OptionTypeId" type="hidden" class="OptionTypeId">
-                            <input id="hiddenQId" value="@Model[i].QuestionId" name="@Model[i].QuestionId " type="hidden" class="QuestionId">
-                        <label class="textbox-label textbox-label-top titleName" id="@Model[i].QuestionId" style="padding:30px;">@k.  @Model[i].QuestionTitle</label>
-                        </h5>
-                    </div>
-                    <div class="mt-2">
 
-                        @for (int j = 0; j < Model[i].OptionList.Count; j++)
-                        {
-                            if (@Model[i].OptionList[j].OptionTypeId == 1)
-                            {
-                                <div class="row">
+                <div class="accordion custom-accordion-button bg-light" id="accordionExample-@i" style=" ">
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                            <a class="accordion-button .custom-accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@i" aria-expanded="true" aria-controls="collapseOne-@i">
+                                <label class="textbox-label textbox-label-top titleName " id="@Model[i].QuestionId" style="padding:1px; font-size:20px;">@k.  @Model[i].QuestionTitle</label>
+                                <input id="hiddenQtyId" name="@Model[i].OptionTypeId" value="@Model[i].OptionTypeId" type="hidden" class="OptionTypeId">
+                                <input id="hiddenQId" value="@Model[i].QuestionId" name="@Model[i].QuestionId " type="hidden" class="QuestionId">
 
-                                    <div class="col-md-1">
+                            </a>
 
-                                    </div>
-                                    <div class="col-md-8">
-                                       
-                                        <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId">
-                                        <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
-                                    </div>
-                                    <div class="col-md-3"></div>
-                                </div>
-                            }
-                            else if (@Model[i].OptionList[j].OptionTypeId == 2)
-                            {
-                                <div class="row">
+                        </h2>
+                        <div id="collapseOne-@i" class="collapse" data-bs-parent="#accordionExample-@i">
+                            <div class="accordion-body">
+                                @for (int j = 0; j < Model[i].OptionList.Count; j++)
+                                {
+                                    if (@Model[i].OptionList[j].OptionTypeId == 1)
+                                    {
+                                        <div class="row">
 
-                                    <div class="col-md-1">
+                                            <div class="col-md-1">
 
-                                    </div>
-                                    <div class="col-md-8">
-                                        
-                                        <input type="checkbox" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-checkbox optId">
-                                        <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
-                                    </div>
-                                    <div class="col-md-3"></div>
-                                </div>
-                            }
-                            else if (@Model[i].OptionList[j].OptionTypeId == 3)
-                            {
-                                <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-8">                                       
-                                        <input class=" form-control easyui-textbox textField" id="textNode[@i]" name="questionResponses[@i].TextField" style="width: 100%; height: 60px; ">
-                                    </div>
-                                </div>
-                            }
+                                            </div>
+                                            <div class="col-md-8">
 
-                        }
+                                                <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId">
+                                                <label class="textbox-label " style="width:80%; font-size:20px;">@Model[i].OptionList[j].OptionName</label>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                    }
+                                    else if (@Model[i].OptionList[j].OptionTypeId == 2)
+                                    {
+                                        <div class="row">
+
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <input type="checkbox" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-checkbox optId">
+                                                <label class="textbox-label " style="width: 80%; font-size: 20px;">@Model[i].OptionList[j].OptionName</label>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                    }
+                                    else if (@Model[i].OptionList[j].OptionTypeId == 3)
+                                    {
+                                        <div class="row ">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-8">
+                                                <input class=" form-control  textField" id="textNode[@i]" name="questionResponses[@i].TextField" style="width: 100%; height: 60px; ">
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
-                        k++;
+
+                                k++;
             }
-            <div class="row">
-                <button class="easyui-linkbutton c1" type="submit" id="btnSurvey">Survey Save</button>
+            <div class="row mt-2 text-center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button class="easyui-linkbutton c1" type="submit" style="width:100%; " id="btnSurvey"><h2>Survey Save</h2></button>
+
+                </div>
+                <div class="col-md-4"></div>
             </div>
+
         </form>
+
     </div>
 </div>
+
+
+
+
+
+
+@*<div class="card shadow-lg p-1 mb-3 bg-light rounded">
+
+
+
+            <div class="row">
+                <h5>
+
+                </h5>
+            </div>
+            <div class="mt-2">
+
+                @for (int j = 0; j < Model[i].OptionList.Count; j++)
+                {
+                    if (@Model[i].OptionList[j].OptionTypeId == 1)
+                    {
+                        <div class="row">
+
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-8">
+
+                                <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId">
+                                <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    }
+                    else if (@Model[i].OptionList[j].OptionTypeId == 2)
+                    {
+                        <div class="row">
+
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-8">
+
+                                <input type="checkbox" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-checkbox optId">
+                                <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    }
+                    else if (@Model[i].OptionList[j].OptionTypeId == 3)
+                    {
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-8">
+                                <input class=" form-control easyui-textbox textField" id="textNode[@i]" name="questionResponses[@i].TextField" style="width: 100%; height: 60px; ">
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+        </div>
+                k++;
+    }
+    <div class="row">
+        <button class="easyui-linkbutton c1" type="submit" id="btnSurvey">Survey Save</button>
+    </div>*@
 
 
 
@@ -103,14 +204,14 @@
     $('#btnSurvey').click(function (e) {
 
         e.preventDefault();
-     
+
         var Qtype = document.getElementsByClassName('OptionTypeId');
         var optId = document.getElementsByClassName('optId');
         var title = document.getElementsByClassName('QuestionId');
         var Text = document.getElementsByClassName('textField');
         var checkboxId = document.getElementById('CheckOptionId');
-        
-        
+
+
         var model = {
             CustomerId: $('#CustomerId').val(),
             QuestionTitleList: []
@@ -120,39 +221,39 @@
 
         for (let i = 0; i < title.length; i++) {
             var qid = title[i].value;
-            var typeid=Qtype[i].value
-            var optionList = [];           
-           
-            var Opts = document.getElementsByName("questionResponses[" + i + "].check");
-           
+            var typeid = Qtype[i].value
+            var optionList = [];
 
-           
-            if (typeid!=3){
-            for (var n = 0; n < Opts.length; n++) {
-                var ischecked = Opts[n].checked;
-                if (ischecked) {
-                    optionList.push({
-                        OptionId: Opts[n].value,
-                        OptionTypeId: Qtype[i].value,
-                        OptionName:''
-                    });
+            var Opts = document.getElementsByName("questionResponses[" + i + "].check");
+
+
+
+            if (typeid != 3) {
+                for (var n = 0; n < Opts.length; n++) {
+                    var ischecked = Opts[n].checked;
+                    if (ischecked) {
+                        optionList.push({
+                            OptionId: Opts[n].value,
+                            OptionTypeId: Qtype[i].value,
+                            OptionName: ''
+                        });
+                    }
                 }
-            }
-            
-           
+
+
             } else {
-             
+
                 var textElements = document.getElementsByName("questionResponses[" + i + "].TextField");
-                
-                var textValue = textElements[0].value;               
+
+                var textValue = textElements[0].value;
                 optionList.push({
-                    OptionId:0,
+                    OptionId: 0,
                     OptionTypeId: Qtype[i].value,
                     OptionName: textValue
 
                 });
 
-                
+
 
             }
 
@@ -160,7 +261,7 @@
                 QuestionId: qid,
                 OptionList: optionList
             });
-            
+
         }
         model.QuestionTitleList.OptionListstring = JSON.stringify(model.QuestionTitleList.OptionList);
         model.QuestionTitleString = JSON.stringify(model.QuestionTitleList);
@@ -177,7 +278,7 @@
                 debugger;
                 if (response == "Success") {
                     window.location.reload();
-                   
+
                 }
 
 

@@ -6,15 +6,16 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <script src="~/Content/toastr.min.js"></script>
-    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />   
     <link href="~/Content/EasyUi/easyui.css" rel="stylesheet" />
     <link href="~/Content/EasyUi/icon.css" rel="stylesheet" />
     <link href="~/Content/color.css" rel="stylesheet" />
     <link href="~/Content/EasyUi/demo.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap.bundle.min.js"></script>
     <script src="~/Content/EasyUi/jquery.min.js"></script>
     <script src="~/Content/EasyUi/jquery.easyui.min.js"></script>
-    
+ 
    
     <style>
         #background {
@@ -40,11 +41,11 @@
                
                 <li><a href="@Url.Action("QuestionSet", "QuestionSets")" class="nav-link px-2 link-dark">QuestionSet</a></li>               
                 <li><a href="@Url.Action("OptionTypeList", "OptionType")" class="nav-link px-2 link-dark">OptionTypeList</a></li>
-                <li><a href="@Url.Action("SetManageList", "SetManage")" class="nav-link px-2 link-dark">SetManage</a></li>
                 <li><a href="@Url.Action("QuestionTitleList", "Question")" class="nav-link px-2 link-dark">Question</a></li>
+                <li><a href="@Url.Action("SetManageList", "SetManage")" class="nav-link px-2 link-dark">SetManage</a></li>                
                 <li><a href="@Url.Action("QuestionCreate", "QuestionManage")" class="nav-link px-2 link-dark">QuestionManage</a></li>
                 <li><a href="@Url.Action("SetList", "SurveyManage")" class="nav-link px-2 link-dark">Set</a></li>
-                @*<li><a href="@Url.Action("SurveyQuestion", "SurveyManage")" class="nav-link px-2 link-dark">SurveyQuestion</a></li>*@
+                <li><a href="@Url.Action("Test", "SurveyManage")" class="nav-link px-2 link-dark">Test</a></li>
                 
             </ul>
 
@@ -60,12 +61,12 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+     
     </div>
       
     <footer class="footer mt-auto py-3 bg-light fixed-bottom">
         <div class="container">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Developed By  <a href="https://mediasoftbd.com/" style="text-decoration:none !important">MediaSoft Data System Limited.</a></p>
         </div>
     </footer>
     

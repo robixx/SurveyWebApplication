@@ -15,6 +15,7 @@ namespace SurveyWebApplication.Models
         public bool IsCorrect { get; set; }
         public int QuestionId { get; set; }
         public int OptionTypeId { get; set; }
+        public string AnsCount { get; set; }
         
     }
 }

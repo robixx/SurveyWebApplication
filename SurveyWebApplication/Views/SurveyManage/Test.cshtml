@@ -1,0 +1,324 @@
+﻿@model List<SurveyWebApplication.Models.Question>
+@{
+    ViewBag.Title = "SurveyQuestion";
+    int k = 1;
+}
+
+<style>
+    .custom-accordion-button {
+        //-bs-accordion-btn-padding-x: 0.75rem !important;
+        vertical-align: middle !important;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .custom-accordion-button {
+        background-color: #e7e9e7 !important;
+    }
+
+    .radiobutton {
+        width: 25px !important;
+        height: 25px !important;
+    }
+
+    .checkbox {
+        width: 25px !important;
+        height: 25px !important;
+    }
+
+    .custbtn {
+        padding: 0px 0px 0px 0px !important;
+    }
+</style>
+<div class="container-fluid mb-5 bg-light ">
+    <div class="jumbotron ">
+        <div class="row">
+            <div class="col-md-3 pb-3">
+                <select class="easyui-combobox" id="CustomerId" label="Customer Name:" labelposition="top" style="width:100%;">
+                    <option selected>---Selected Customer---</option>
+                    <option value="0000001">Mr. X</option>
+                    <option value="0000002">Jhone</option>
+                    <option value="0000003">Doe</option>
+                    <option value="0000004">Janiyel</option>
+                    <option value="0000005">Smith</option>
+                    <option value="0000006">Root</option>
+                </select>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="text-center">
+                    <h3>Survey Report Show</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <form id="Survey" method="post">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+
+                <div class="accordion custom-accordion-button bg-light" id="accordionExample-@i" style=" ">
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header">
+                            <a class="accordion-button .custom-accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@i" aria-expanded="true" aria-controls="collapseOne-@i">
+                                <label class="textbox-label textbox-label-top titleName " id="@Model[i].QuestionId" style="padding:1px; font-size:20px;">@k.  @Model[i].QuestionTitle</label>
+                                <input id="hiddenQtyId" name="@Model[i].OptionTypeId" value="@Model[i].OptionTypeId" type="hidden" class="OptionTypeId">
+                                <input id="hiddenQId" value="@Model[i].QuestionId" name="@Model[i].QuestionId " type="hidden" class="QuestionId">
+
+                            </a>
+
+                        </h2>
+                        <div id="collapseOne-@i" class="collapse" data-bs-parent="#accordionExample-@i">
+                            <div class="accordion-body">
+                                @for (int j = 0; j < Model[i].OptionList.Count; j++)
+                                {
+                                    if (@Model[i].OptionList[j].OptionTypeId == 1)
+                                    {
+                                        <div class="row">
+
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId" disabled>
+                                                <label class="textbox-label " style="width:80%; font-size:20px;">@Model[i].OptionList[j].OptionName</label>
+                                                <button id="btnResponseid" class="btn btn-primary custbtn" type="button" onclick="loadOptionDetails(@Model[i].OptionList[j].OptionId)">
+                                                    <input type="hidden" name="questionResponses[@i]" id="CountId" value="@Model[i].OptionList[j].OptionId">
+                                                    <span class="rounded-pill badge  ">@Model[i].OptionList[j].AnsCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                    }
+                                    else if (@Model[i].OptionList[j].OptionTypeId == 2)
+                                    {
+                                        <div class="row">
+
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <input type="checkbox" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-checkbox optId" disabled="disabled">
+                                                <label class="textbox-label " style="width: 80%; font-size: 20px;">@Model[i].OptionList[j].OptionName</label>
+                                                <button id="btnResponseid" class="btn btn-info custbtn" type="button" onclick="loadOptionDetails(@Model[i].OptionList[j].OptionId)">
+                                                    <input type="hidden" name="questionResponses[@i]" id="CountId[@i]" value="@Model[i].OptionList[j].OptionId">
+                                                    <span class="rounded-pill badge ">@Model[i].OptionList[j].AnsCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                    }
+                                    else if (@Model[i].OptionList[j].OptionTypeId == 3)
+                                    {
+                                        <div class="row ">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-8">
+                                                <input class=" form-control  textField" id="textNode[@i]" name="questionResponses[@i].TextField" style="width: 100%; height: 60px; ">
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                                k++;
+            }
+            @*<div class="row mt-2 text-center">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button class="easyui-linkbutton c1" type="submit" style="width:100%; " id="btnSurvey"><h2>Survey Save</h2></button>
+
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>*@
+
+        </form>
+        <div class="row">
+            <div class="line text-center">
+                <div class="lineL"></div>
+                <div class="" style="display:inline-block;">Survey Report </div>
+                <div class="lineR"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>                                
+                                <th scope="col">Customer Name</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="gridData">
+
+                            </tr>
+                            
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+
+    function loadOptionDetails(optId){
+        debugger;
+        $.ajax({
+            url: "ModalData/" + optId,
+            type: 'GET',            
+            success: function (result) {
+                var modalDataElement = $('#gridData');
+                modalDataElement.empty();
+
+
+                data.forEach(function(item) {
+                    modalDataElement.append('<td>' + item + '</td>');
+                });
+
+
+                $('#myModal').modal('show');
+            },
+            error: function() {
+
+            }
+        });
+
+       
+
+    }
+
+
+
+
+
+    //$('#btnSurvey').click(function (e) {
+
+    //    e.preventDefault();
+
+    //    var Qtype = document.getElementsByClassName('OptionTypeId');
+    //    var optId = document.getElementsByClassName('optId');
+    //    var title = document.getElementsByClassName('QuestionId');
+    //    var Text = document.getElementsByClassName('textField');
+    //    var checkboxId = document.getElementById('CheckOptionId');
+
+
+    //    var model = {
+    //        CustomerId: $('#CustomerId').val(),
+    //        QuestionTitleList: []
+
+    //    };
+    //    model.QuestionTitleList = [];
+
+    //    for (let i = 0; i < title.length; i++) {
+    //        var qid = title[i].value;
+    //        var typeid = Qtype[i].value
+    //        var optionList = [];
+
+    //        var Opts = document.getElementsByName("questionResponses[" + i + "].check");
+
+
+
+    //        if (typeid != 3) {
+    //            for (var n = 0; n < Opts.length; n++) {
+    //                var ischecked = Opts[n].checked;
+    //                if (ischecked) {
+    //                    optionList.push({
+    //                        OptionId: Opts[n].value,
+    //                        OptionTypeId: Qtype[i].value,
+    //                        OptionName: ''
+    //                    });
+    //                }
+    //            }
+
+
+    //        } else {
+
+    //            var textElements = document.getElementsByName("questionResponses[" + i + "].TextField");
+
+    //            var textValue = textElements[0].value;
+    //            optionList.push({
+    //                OptionId: 0,
+    //                OptionTypeId: Qtype[i].value,
+    //                OptionName: textValue
+
+    //            });
+
+
+
+    //        }
+
+    //        model.QuestionTitleList.push({
+    //            QuestionId: qid,
+    //            OptionList: optionList
+    //        });
+
+    //    }
+    //    model.QuestionTitleList.OptionListstring = JSON.stringify(model.QuestionTitleList.OptionList);
+    //    model.QuestionTitleString = JSON.stringify(model.QuestionTitleList);
+    //    debugger
+    //    console.log(model);
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "AnswerSubmit/SurveyManage",
+    //        data: model,
+    //        dataType: 'json',
+
+    //        success: function (response) {
+    //            debugger;
+    //            if (response == "Success") {
+    //                window.location.reload();
+
+    //            }
+
+
+    //        },
+    //        error: function () {
+    //            //error code here
+    //            debugger;
+    //            window.location.reload();
+    //        }
+    //    });
+
+    //});
+
+</script>

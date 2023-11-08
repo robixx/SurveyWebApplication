@@ -461,5 +461,38 @@ namespace SurveyWebApplication.DAL
         }
 
 
+        public List<SurveyViewInfo> GetAllSurveyList01()
+        {
+            List<SurveyViewInfo> getQqestionSet = new List<SurveyViewInfo>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId ,(select count(OptionId) from QuestionAnswer where OptionId=a.OptionId) AnsCount from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId" ;
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        getQqestionSet.Add(new SurveyViewInfo
+                        {
+                            QuestionId = Convert.ToInt32(reader["QuestionId"]),
+                            QuestionTitle = reader["QuestionTitle"].ToString(),
+                            OptionId = Convert.ToInt32(reader["OptionId"]),
+                            OptionName = reader["OptionName"].ToString(),
+                            OptionTypeId = Convert.ToInt32(reader["OptionTypeId"]),
+                            OptionTypeName = reader["OptionTypeName"].ToString(),
+                            IsCorrect = Convert.ToBoolean(reader["IsCorrect"]),
+                            SetId = Convert.ToInt32(reader["SetId"]),
+                            AnsCount = reader["AnsCount"].ToString(),
+                        });
+                    }
+                }
+                return getQqestionSet;
+            }
+        }
+
+
     }
 }
