@@ -15,5 +15,6 @@ namespace SurveyWebApplication.ModelViewInfo
         public string OptionName { get; set; }
         public int SetId { get; set; }
         public bool IsCorrect { get; set; }
+        public string AnsCount { get; set; }
     }
 }
