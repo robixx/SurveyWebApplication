@@ -132,8 +132,37 @@ namespace SurveyWebApplication.Controllers
         //[Route("SurveyManage/ModalData/{id}")]
         public JsonResult ModalData(int id)
         {
-            int result = id;
-            return Json(result);
+            var databaseConnection = new DatabaseConnection();
+            List<CustomerInformation> result = databaseConnection.GetCustomer(id);
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        [HttpGet]
+
+        public ActionResult OrganizationSurvey()
+        {
+            var dataConnection = new DatabaseConnection();
+           
+            List<Organization> list = dataConnection.GetOrganizationList01();
+            ViewBag.list = list;
+            return View();
+        }
+
+
+        [HttpGet]
+
+        public ActionResult FilterSurve(string fromDate, string toDate)
+        {
+            var dataConnection = new DatabaseConnection();
+            string frmdate = fromDate == null ? "" : fromDate.ToString();
+            string todate = fromDate == null ? "" : toDate.ToString();
+            List<Organization> list = dataConnection.GetOrganizationList(frmdate, todate);
+            ViewBag.list = list;
+            return View();
         }
 
 

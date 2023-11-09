@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionTypeController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\QuestionManageController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\SetManageController.cs" />
@@ -172,8 +173,10 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CustomerInformation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OptionType.cs" />
+    <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionAnswer.cs" />
     <Compile Include="Models\Option.cs" />
@@ -804,6 +807,8 @@
     <Content Include="Views\SurveyManage\SurveyQuestion.cshtml" />
     <Content Include="Views\SurveyManage\SetList.cshtml" />
     <Content Include="Views\SurveyManage\Test.cshtml" />
+    <Content Include="Views\Organization\OrganizationList.cshtml" />
+    <Content Include="Views\SurveyManage\OrganizationSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

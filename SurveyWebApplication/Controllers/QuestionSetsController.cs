@@ -29,7 +29,7 @@ namespace SurveyWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult QuestionSetCreate(String SetName)
+        public ActionResult QuestionSetCreate(String SetName, string Name)
         {
             string setName = SetName.ToString();
             string createby = "";
@@ -37,19 +37,34 @@ namespace SurveyWebApplication.Controllers
             DateTime CreateDate =DateTime.Now;
             DateTime UpdateDate = Convert.ToDateTime("1900-01-01");
             string Status = "";
+            string OrgId = Name.ToString();
 
-
-            if (setName == "")
+            if (setName == "" || OrgId=="")
             {
 
             }
             else
             {
                 var databaseConnection = new DatabaseConnection();
-                var valueadd = databaseConnection.QuestionSetCreate(setName, createby, updateby, CreateDate, UpdateDate, Status);
+                var valueadd = databaseConnection.QuestionSetCreate(setName, createby, updateby, CreateDate, UpdateDate, Status, OrgId);
             }
 
             return RedirectToAction("QuestionSet");
+        }
+
+
+
+
+
+        [HttpGet]
+        public JsonResult OrganizationList()
+        {
+            var databaseConnection = new DatabaseConnection();
+            var list = databaseConnection.GetOrganizationList01(); 
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+
+
         }
 	}
 }
