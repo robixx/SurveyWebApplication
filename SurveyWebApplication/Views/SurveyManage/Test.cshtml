@@ -41,7 +41,7 @@
                     <option value="0000001">Mr. X</option>
                     <option value="0000002">Jhone</option>
                     <option value="0000003">Doe</option>
-                    <option value="0000004">Janiyel</option>
+                    <option value="0000004">Daniyel</option>
                     <option value="0000005">Smith</option>
                     <option value="0000006">Root</option>
                 </select>
@@ -155,28 +155,27 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Customer List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
+
+
                     <table class="table table-striped">
-                        <thead>
-                            <tr>                                
-                                <th scope="col">Customer Name</th>                                
-                            </tr>
-                        </thead>
+                        <thead><tr><th scope="col">Customer Name</th></tr></thead>
                         <tbody>
                             <tr id="gridData">
+                                
 
                             </tr>
-                            
-                            <tr>
                         </tbody>
                     </table>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
                 </div>
             </div>
         </div>
@@ -200,29 +199,36 @@
 
 
 
-    function loadOptionDetails(optId){
-        debugger;
+    function loadOptionDetails(optId) {
+
         $.ajax({
             url: "ModalData/" + optId,
-            type: 'GET',            
+            type: 'GET',
             success: function (result) {
                 var modalDataElement = $('#gridData');
                 modalDataElement.empty();
+                debugger;
+                if (result.length > 0) {
+                    result.forEach(function (item) {
+
+                        modalDataElement.append('<td>'+item.CustomerName+'</td>');
 
 
-                data.forEach(function(item) {
-                    modalDataElement.append('<td>' + item + '</td>');
-                });
+                    });
+                } else {
+                    modalDataElement.append('<div class="text-center"> Data Not Found </div> ');
+                }
+
 
 
                 $('#myModal').modal('show');
             },
-            error: function() {
-
+            error: function () {
+                debugger;
             }
         });
 
-       
+
 
     }
 

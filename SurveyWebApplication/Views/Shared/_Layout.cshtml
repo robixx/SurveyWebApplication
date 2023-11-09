@@ -10,7 +10,7 @@
     <link href="~/Content/EasyUi/easyui.css" rel="stylesheet" />
     <link href="~/Content/EasyUi/icon.css" rel="stylesheet" />
     <link href="~/Content/color.css" rel="stylesheet" />
-    <link href="~/Content/EasyUi/demo.css" rel="stylesheet" />
+   
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Content/bootstrap.bundle.min.js"></script>
     <script src="~/Content/EasyUi/jquery.min.js"></script>
@@ -18,43 +18,66 @@
  
    
     <style>
-        #background {
-            background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#085454),color-stop(1,#325da7));
+        .background {
+            background: -webkit-gradient(linear,left top,left bottom,color-stop(1,#1f4b65),color-stop(0,#83b7b7));
             border-color: black;
             border-radius: 2px;
-            color:white !important;
-            
+            color: white !important;
         }
+
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+            color: white !important;
+        }
+        #headcolor {
+            color: white !important;
+        }
+      
     </style>
 
 </head>
-<body>
-   
+<body>   
 
-    <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 mb-3 border-bottom">
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap" /></svg>
-            </a>
-
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-               
-                <li><a href="@Url.Action("QuestionSet", "QuestionSets")" class="nav-link px-2 link-dark">QuestionSet</a></li>               
-                <li><a href="@Url.Action("OptionTypeList", "OptionType")" class="nav-link px-2 link-dark">OptionTypeList</a></li>
-                <li><a href="@Url.Action("QuestionTitleList", "Question")" class="nav-link px-2 link-dark">Question</a></li>
-                <li><a href="@Url.Action("SetManageList", "SetManage")" class="nav-link px-2 link-dark">SetManage</a></li>                
-                <li><a href="@Url.Action("QuestionCreate", "QuestionManage")" class="nav-link px-2 link-dark">QuestionManage</a></li>
-                <li><a href="@Url.Action("SetList", "SurveyManage")" class="nav-link px-2 link-dark">Set</a></li>
-                <li><a href="@Url.Action("Test", "SurveyManage")" class="nav-link px-2 link-dark">Test</a></li>
-                
-            </ul>
-
-            <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+    <nav class="navbar background navbar-expand-md navbar-light bg-light mb-4">
+        <div class="container">
+            <a class="navbar-brand" id="headcolor" href="#">SurveyApplication</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("OrganizationList", "Organization")">Organized</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("QuestionSet", "QuestionSets")">SurveySet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("OptionTypeList", "OptionType")">OptionType</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("QuestionTitleList", "Question")">SurveyTitle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("SetManageList", "SetManage")">SetManage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("QuestionCreate", "QuestionManage")">SurveyCreate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("OrganizationSurvey", "SurveyManage")">Survey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("Test", "SurveyManage")">SurveyResult</a>
+                    </li>
+                </ul>
+                <form class="d-flex" id="headcolor">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
             </div>
-        </header>
-    </div>
+        </div>
+    </nav>
 
 
 

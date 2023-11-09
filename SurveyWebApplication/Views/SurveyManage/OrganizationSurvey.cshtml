@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "OrganizationSurvey";
+    int k = 1;
+}
+
+
+<style>
+    a {
+        text-decoration: none;
+        font-family: Constantia;
+    }
+
+    .padtop {
+        padding-top: 1.8rem !important;
+    }
+</style>
+<div class=" shadow-lg p-3 rounded bg-light">
+    <h2 class="text-center">Organization List</h2><hr />
+    <div class="row">
+        <form id="www" method="post">
+
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="textbox-label">From Date</label>
+                </div>
+                <div class="col-md-3">
+                    <input class="easyui-datetimebox" id="fromDate"
+                           data-options="required:true,showSeconds:false" value="3/4/2010 " style="width: 250px; height: 35px;">
+                </div>
+                <div class="col-md-1">
+                    <label class="textbox-label">To Date</label>
+                </div>
+                <div class="col-md-3">
+                    <input class="easyui-datetimebox" id="toDate"
+                           data-options="required:true,showSeconds:false" value="3/4/2010 " style="width: 250px; height: 35px;">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="easyui-linkbutton c1" id="btnfilter" style="width:80px">Filter</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="row mt-5" style="font-size:28px; ">
+        
+        @foreach (var item in ViewBag.list)
+        {
+            <div class="col-md-1"></div>
+            <div class="col-md-11 mt-1">
+                <a href="@Url.Action("SetList", "SurveyManage")" class="pl-2">@k.  @item.Name</a>
+            </div>
+            k++;
+        }
+    </div>
+
+
+</div>
+
+
+
+
+<script>
+    debugger;
+    const date = new Date();
+    let currentDay = String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth() + 1).padStart(2, "0");
+    let currentYear = date.getFullYear();
+
+    $('#fromDate').datetimebox({
+        value: '${currentDay}-${currentMonth}-${currentYear}',
+        format: 'dd-MMM-yyyy',
+        required: true,
+        showSeconds: false
+    });
+
+
+    $('#toDate').datetimebox({
+        value: '${today.getDate()}/{today.getMonth()}/${today.getFullYear()}',
+        format: 'dd-MMM-yyyy',
+        required: true,
+        showSeconds: false
+    });
+
+
+    $('#btnfilter').click(function (e) {
+        e.preventDefault();
+        debugger;
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        
+        if (name == null) {
+
+        }
+        $.ajax({
+            type: "get",
+            url: "FilterSurve/SurveyManage",
+            data: { fromDate: fromDate, toDate: toDate },
+            dataType: 'json',
+            success: function (response) {
+
+
+                
+
+            },
+            error: function () {
+                //error code here
+               
+            }
+        });
+
+    });
+
+
+
+</script>

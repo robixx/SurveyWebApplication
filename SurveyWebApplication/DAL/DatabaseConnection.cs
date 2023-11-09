@@ -49,7 +49,89 @@ namespace SurveyWebApplication.DAL
 
         }
 
-       
+        public List<Organization> GetOrganizationList(string fromDate,string  toDate)
+        {
+            List<Organization> list = new List<Organization>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                 string query="";
+                if (fromDate == "" || toDate == "")
+                {
+                    query = "SELECT OrgId, Name, Address, ContactNo, CreateBy, CreateDate FROM Organization";
+                }
+                else
+                {
+                    DateTime fo = Convert.ToDateTime(fromDate);
+                    var fordate = fo.ToString("MM-dd-yyyy");
+
+                    DateTime to = Convert.ToDateTime(toDate);
+                    var todate = to.ToString("MM-dd-yyyy");
+
+                    query = "SELECT OrgId, Name, Address, ContactNo, CreateBy, CreateDate FROM Organization where CAST(CreateDate  AS DATE) between '" + @fordate + "' and '" + @todate+"'";
+                }
+                
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Organization
+                        {
+                            OrgId = Convert.ToInt32(reader["OrgId"]),
+                            Name = reader["Name"].ToString(),
+                            CreateBy = reader["CreateBy"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            CreateDate = Convert.ToDateTime(reader["CreateDate"].ToString()),                           
+                            ContactNo = reader["ContactNo"].ToString(),
+
+                        });
+                    }
+                }
+                return list;
+            }
+        }
+
+
+
+        public List<Organization> GetOrganizationList01()
+        {
+            List<Organization> list = new List<Organization>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+               
+                  string  query = "SELECT OrgId, Name, Address, ContactNo, CreateBy, CreateDate FROM Organization";
+                
+
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Organization
+                        {
+                            OrgId = Convert.ToInt32(reader["OrgId"]),
+                            Name = reader["Name"].ToString(),
+                            CreateBy = reader["CreateBy"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            CreateDate = Convert.ToDateTime(reader["CreateDate"].ToString()),
+                            ContactNo = reader["ContactNo"].ToString(),
+
+                        });
+                    }
+                }
+                return list;
+            }
+        }
+
+
+
+
         public List<OptionType> GetAllOptionType()
         {
 
@@ -84,13 +166,13 @@ namespace SurveyWebApplication.DAL
 
 
 
-        public string QuestionSetCreate(string setName, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
+        public string QuestionSetCreate(string setName, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status, string OrgId)
         {
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
 
-                string sql = "INSERT INTO QuestionSet (SetName, CreateBy,UpdateBy,CreateDate, UpdateDate,Status) VALUES (@setName, @createby, @updateby, @CreateDate, @UpdateDate, @Status)";
+                string sql = "INSERT INTO QuestionSet (SetName, CreateBy,UpdateBy,CreateDate, UpdateDate,Status,OrgId) VALUES (@setName, @createby, @updateby, @CreateDate, @UpdateDate, @Status,@OrgId)";
 
                 using (SqlCommand command = new SqlCommand(sql, connect))
                 {
@@ -100,6 +182,7 @@ namespace SurveyWebApplication.DAL
                     command.Parameters.AddWithValue("@CreateDate", CreateDate);
                     command.Parameters.AddWithValue("@UpdateDate", UpdateDate);
                     command.Parameters.AddWithValue("@Status", Status);
+                    command.Parameters.AddWithValue("@OrgId", OrgId);
 
 
                     var rowcount = command.ExecuteNonQuery();
@@ -145,9 +228,9 @@ namespace SurveyWebApplication.DAL
                         QuestionManage ques = new QuestionManage
                         {
                             QuestionId = Convert.ToInt32(reader["QuestionId"]),
-                            QuestionTitle = reader["QuestionTitle"].ToString(),                           
-                           
-                            
+                            QuestionTitle = reader["QuestionTitle"].ToString(),
+
+
 
                         };
 
@@ -162,7 +245,7 @@ namespace SurveyWebApplication.DAL
 
 
 
-        public string CreateQuestion(string QuestionTitle,  string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
+        public string CreateQuestion(string QuestionTitle, string createby, string updateby, DateTime CreateDate, DateTime UpdateDate, string Status)
         {
 
             using (SqlConnection connect = new SqlConnection(connection))
@@ -173,8 +256,8 @@ namespace SurveyWebApplication.DAL
 
                 using (SqlCommand command = new SqlCommand(sql, connect))
                 {
-                    command.Parameters.AddWithValue("@QuestionTitle", QuestionTitle);                   
-               
+                    command.Parameters.AddWithValue("@QuestionTitle", QuestionTitle);
+
                     command.Parameters.AddWithValue("@CreateBy", createby);
                     command.Parameters.AddWithValue("@UpdateBy", updateby);
                     command.Parameters.AddWithValue("@CreateDate", CreateDate);
@@ -220,7 +303,7 @@ namespace SurveyWebApplication.DAL
                         {
                             QuestionId = Convert.ToInt32(reader["QuestionId"]),
                             QuestionTitle = reader["QuestionTitle"].ToString(),
-                           
+
                         });
                     }
                 }
@@ -340,7 +423,7 @@ namespace SurveyWebApplication.DAL
                 using (SqlCommand command = new SqlCommand(sql, connect))
                 {
                     command.Parameters.AddWithValue("@SetId", SetId);
-                    command.Parameters.AddWithValue("@QuestionId", QuestionId);                   
+                    command.Parameters.AddWithValue("@QuestionId", QuestionId);
 
                     var rowcount = command.ExecuteNonQuery();
                     if (rowcount > 0)
@@ -391,14 +474,14 @@ namespace SurveyWebApplication.DAL
             }
         }
 
-        public List<SurveyViewInfo> GetAllSurveyList( string SetId)
+        public List<SurveyViewInfo> GetAllSurveyList(string SetId)
         {
             List<SurveyViewInfo> getQqestionSet = new List<SurveyViewInfo>();
 
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
-                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId where d.SetId="+@SetId;
+                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId where d.SetId=" + @SetId;
                 SqlCommand command = new SqlCommand(query, connect);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -468,7 +551,7 @@ namespace SurveyWebApplication.DAL
             using (SqlConnection connect = new SqlConnection(connection))
             {
                 connect.Open();
-                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId ,(select count(OptionId) from QuestionAnswer where OptionId=a.OptionId) AnsCount from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId" ;
+                string query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId ,(select count(OptionId) from QuestionAnswer where OptionId=a.OptionId) AnsCount from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId";
                 SqlCommand command = new SqlCommand(query, connect);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -493,6 +576,70 @@ namespace SurveyWebApplication.DAL
             }
         }
 
+
+
+
+
+        public List<CustomerInformation> GetCustomer(int id)
+        {
+
+            List<CustomerInformation> AllCustomer = new List<CustomerInformation>();
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+                string query = "select a.CustomerId, a.OptionId,b.CustomerName from QuestionAnswer a left join CustomerInformation b on a.CustomerId=b.CustomerId where a.OptionId= " + @id;
+                SqlCommand command = new SqlCommand(query, connect);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AllCustomer.Add(new CustomerInformation
+                        {
+                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
+
+                            CustomerName = reader["CustomerName"].ToString(),
+
+                        });
+                    }
+                }
+                return AllCustomer;
+            }
+        }
+
+        public string OrganizationInsert(string Name, string Address, string ContactNo, string CreateBy, DateTime CreateDate)
+        {
+
+            using (SqlConnection connect = new SqlConnection(connection))
+            {
+                connect.Open();
+
+                string sql = "INSERT INTO Organization (Name, Address, ContactNo, CreateBy, CreateDate) VALUES (@Name, @Address, @ContactNo, @CreateBy, @CreateDate)";
+
+                using (SqlCommand command = new SqlCommand(sql, connect))
+                {
+                    command.Parameters.AddWithValue("@Name", Name);
+                    command.Parameters.AddWithValue("@Address", Address);
+                    command.Parameters.AddWithValue("@ContactNo", ContactNo);
+                    command.Parameters.AddWithValue("@CreateBy", CreateBy);
+                    command.Parameters.AddWithValue("@CreateDate", CreateDate);
+                    var rowcount = command.ExecuteNonQuery();
+                    if (rowcount > 0)
+                    {
+                        return "Data inserted successfully!";
+
+                    }
+                    else
+                    {
+                        return "Data inserted Failed!";
+
+                    }
+
+                }
+            }
+
+        }
 
     }
 }

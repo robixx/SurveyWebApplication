@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "OrganizationList";
+}
+
+
+
+<style>
+    .sep {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sepText {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+    }
+
+        .sepText::before,
+        .sepText::after {
+            content: '';
+            flex: 1;
+            width: 1px;
+            background: currentColor;
+            /* matches font color */
+            margin: .25em;
+        }
+    #bgcolor {
+        background: -webkit-gradient(linear,left top,left bottom,color-stop(1,#1f4b65),color-stop(0,#83b7b7)) !important;
+    }
+    
+</style>
+
+
+<div class="container-fluid bg-light ">
+    <div class="card shadow-lg p-3 mb-5 bg-light rounded">
+        <h3 class="text-center "> Organization</h3><hr />
+        <div class="row">
+            <div class="col-md-5">
+                <form method="post" id="ggg" action="Create">
+                    <div class="col-md-2">
+                        <label for="formGroupExampleInput" class="form-label">Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" name="Name" id="name" class="form-control"  placeholder="Organization Name" required>
+                    </div>
+                    <div class="col-md-2 ">
+                        <label for="formGroupExampleInput" class="form-label mb-2">Contact No</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" name="Contact" id="contact" placeholder="Contact No">
+                    </div>
+                    <div class="col-md-2 ">
+                        <label for="formGroupExampleInput" class="form-label mb-2">Address</label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea class="form-control" name="Address" id="address" placeholder="Organization Address" rows="3"></textarea>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="button" id="submitbtn" class="btn btn-success">Save</button>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 sep">
+                <span class="sepText">
+                    OR
+                </span>
+            </div>
+            <div class="col-md-6">
+
+                <table class="table table-striped">
+                    <thead id="bgcolor">
+                        <tr>
+                            <th>Organization Name</th>
+                            <th>Contact No</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in ViewBag.list)
+                    {
+                        <tbody>
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.ContactNo</td>
+                            <td>@item.Address</td>
+
+                        </tr>
+                    </tbody>
+                    }
+
+                    
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $('#submitbtn').click(function (e) {
+        e.preventDefault();
+        debugger;
+        var name = $('#name').val();
+        var address = $('#address').val();
+        var contact = $('#contact').val();
+        if (name == null) {
+
+        }
+        $.ajax({
+            type: "POST",
+            url: "Create/Organization",
+            data: { Name: name, Address: address, ContactNo: contact },
+            dataType: 'json',
+            success: function (response) {
+            
+               
+                    window.location.reload();
+                 
+            },
+            error: function () {
+                //error code here
+                window.location.reload();
+            }
+        });
+
+    });
+
+</script>
