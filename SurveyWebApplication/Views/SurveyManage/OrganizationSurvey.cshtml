@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<SurveyWebApplication.Models.Organization>
+
+@{
     ViewBag.Title = "OrganizationSurvey";
     int k = 1;
 }
@@ -43,18 +45,32 @@
     </div>
 
 
-    <div class="row mt-5" style="font-size:28px; ">
-        
-        @foreach (var item in ViewBag.list)
-        {
-            <div class="col-md-1"></div>
-            <div class="col-md-11 mt-1">
-                <a href="@Url.Action("SetList", "SurveyManage")" class="pl-2">@k.  @item.Name</a>
+   
+        @if (ViewBag.Datad.Count>0)
+            {
+            <div class="row mt-5" style="font-size:28px; ">
+                @foreach (var item in ViewBag.Datad)
+                {
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11 mt-1">
+                        <a href="@Url.Action("SetList", "SurveyManage", new { OrgId = @item.OrgId })" id="datafilter" class="pl-2">@k. @item.Name </a>
+                    </div>
+                    k++;
+                }
             </div>
-            k++;
+            }
+        else
+        {
+             <div class="row mt-5" style="font-size:28px; ">
+              
+                   
+                    <div class="col-md-12 mt-1 text-center">
+                        <p class="bg-light">No data available.</p>
+                    </div>
+                 
+            </div>
+           
         }
-    </div>
-
 
 </div>
 
@@ -84,31 +100,35 @@
     });
 
 
+   
+
     $('#btnfilter').click(function (e) {
         e.preventDefault();
         debugger;
         var fromDate = $('#fromDate').val();
         var toDate = $('#toDate').val();
         
-        if (name == null) {
+        window.location.href = '@Url.Action("OrganizationSurvey", "SurveyManage")?fromDate=' + fromDate + '&toDate=' + toDate;
 
-        }
-        $.ajax({
-            type: "get",
-            url: "FilterSurve/SurveyManage",
-            data: { fromDate: fromDate, toDate: toDate },
-            dataType: 'json',
-            success: function (response) {
+        //if (name == null) {
 
+        //}
+        //$.ajax({
+        //    type: "post",
+        //    url: "FilterSurvey/SurveyManage",
+        //    data: { fromDate: fromDate, toDate: toDate },
+        //    dataType: 'json',
+        //    success: function (response) {
+              
 
                 
 
-            },
-            error: function () {
-                //error code here
+        //    },
+        //    error: function () {
+        //        //error code here
                
-            }
-        });
+        //    }
+        //});
 
     });
 

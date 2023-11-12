@@ -27,27 +27,28 @@
 </style>
 <div class="container-fluid mb-5 bg-light ">
     <div class="jumbotron ">
-        <div class="row">
-            <div class="col-md-3 pb-3">
-                <select class="easyui-combobox" id="CustomerId" label="Customer Name:" labelposition="top" style="width:100%;">
-                    <option selected>---Selected Customer---</option>
-                    <option value="0000001">Mr. X</option>
-                    <option value="0000002">Jhone</option>
-                    <option value="0000003">Doe</option>
-                    <option value="0000004">Janiyel</option>
-                    <option value="0000005">Smith</option>
-                    <option value="0000006">Root</option>
-                </select>
-            </div>
-            <div class="col-md-6 mt-3">
-                <div class="text-center">
-                    <h3>Survey</h3>
-                </div>
-            </div>
-
-        </div>
-
         <form id="Survey" method="post">
+            <div class="row">
+                <div class="col-md-6 pb-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="email">Customer</label>
+                        </div>
+                        <div class="col-md-5">
+                            <input id="Customer" class="easyui-combobox " style="width: 275px; height: 35px;" name="Name" data-options="valueField:'CustomerId',textField:'CustomerName',method:'Get', url:'CustListList/SurveyManage'">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <h3>Survey</h3>
+                    </div>
+                </div>
+
+            </div>
+
+
             @for (int i = 0; i < Model.Count; i++)
             {
 
@@ -132,74 +133,23 @@
 
 
 
-
-@*<div class="card shadow-lg p-1 mb-3 bg-light rounded">
-
-
-
-            <div class="row">
-                <h5>
-
-                </h5>
-            </div>
-            <div class="mt-2">
-
-                @for (int j = 0; j < Model[i].OptionList.Count; j++)
-                {
-                    if (@Model[i].OptionList[j].OptionTypeId == 1)
-                    {
-                        <div class="row">
-
-                            <div class="col-md-1">
-
-                            </div>
-                            <div class="col-md-8">
-
-                                <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId">
-                                <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
-                            </div>
-                            <div class="col-md-3"></div>
-                        </div>
-                    }
-                    else if (@Model[i].OptionList[j].OptionTypeId == 2)
-                    {
-                        <div class="row">
-
-                            <div class="col-md-1">
-
-                            </div>
-                            <div class="col-md-8">
-
-                                <input type="checkbox" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-checkbox optId">
-                                <label class="textbox-label " style="width:80%">@Model[i].OptionList[j].OptionName</label>
-                            </div>
-                            <div class="col-md-3"></div>
-                        </div>
-                    }
-                    else if (@Model[i].OptionList[j].OptionTypeId == 3)
-                    {
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-8">
-                                <input class=" form-control easyui-textbox textField" id="textNode[@i]" name="questionResponses[@i].TextField" style="width: 100%; height: 60px; ">
-                            </div>
-                        </div>
-                    }
-
-                }
-            </div>
-        </div>
-                k++;
-    }
-    <div class="row">
-        <button class="easyui-linkbutton c1" type="submit" id="btnSurvey">Survey Save</button>
-    </div>*@
-
-
-
-
-
 <script>
+
+   
+    $('#Customer').combobox({
+        prompt: 'Select an CustomerName',
+        valueField: 'CustomerId',
+        textField: 'CustomerName',
+        url: 'CustListList/SurveyManage',
+        onLoadSuccess: function (data) {
+            console.log(data);
+        }
+    });
+
+
+
+
+
 
     $('#btnSurvey').click(function (e) {
 
