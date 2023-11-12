@@ -56,7 +56,8 @@ namespace SurveyWebApplication.Controllers
         public ActionResult SetList()
         {
             var databaseConnection = new DatabaseConnection();
-            List<QuestionSet> questionlist = databaseConnection.GetAllQuestionSet();
+            string orgid = Request.QueryString["OrgId"].ToString();
+            List<QuestionSet> questionlist = databaseConnection.GetAllQuestionSet01(orgid);
             return View(questionlist);
         }
 
@@ -94,7 +95,16 @@ namespace SurveyWebApplication.Controllers
         {
             var databaseConnection = new DatabaseConnection();
             string setId = Request.QueryString["SetId"] == null ? "" : Request.QueryString["SetId"].ToString();
-            List<SurveyViewInfo> questionlist = databaseConnection.GetAllSurveyList01();
+            List<SurveyViewInfo> questionlist = new List<SurveyViewInfo>();
+            if (setId == "")
+            {
+                questionlist = databaseConnection.GetAllSurveyList01();
+            }
+            else
+            {
+                questionlist = databaseConnection.GetAllSurveyList(setId);
+            }
+            
 
             List<Question> newQuestionList = new List<Question>();
             var idata = questionlist.Select(x => x.QuestionId).Distinct();
@@ -140,30 +150,49 @@ namespace SurveyWebApplication.Controllers
 
 
 
-
         [HttpGet]
-
-        public ActionResult OrganizationSurvey()
+        public JsonResult SetNameList()
         {
-            var dataConnection = new DatabaseConnection();
-           
-            List<Organization> list = dataConnection.GetOrganizationList01();
-            ViewBag.list = list;
-            return View();
+            var databaseConnection = new DatabaseConnection();
+            var data = databaseConnection.GetAllQuestionSet();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+
         }
 
 
         [HttpGet]
+        public JsonResult CustListList()
+        {
+            var databaseConnection = new DatabaseConnection();
+            var data = databaseConnection.GetAllCustomer();
 
-        public ActionResult FilterSurve(string fromDate, string toDate)
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+
+
+
+
+        [HttpGet]
+
+        public ActionResult OrganizationSurvey(string fromDate, string toDate)
         {
             var dataConnection = new DatabaseConnection();
             string frmdate = fromDate == null ? "" : fromDate.ToString();
             string todate = fromDate == null ? "" : toDate.ToString();
             List<Organization> list = dataConnection.GetOrganizationList(frmdate, todate);
-            ViewBag.list = list;
+            //ViewBag.list = list;
+            ViewBag.Datad = list;
+
             return View();
         }
+
+
+        
 
 
 	}
