@@ -55,9 +55,8 @@ namespace SurveyWebApplication.Controllers
         [HttpGet]
         public ActionResult SetList()
         {
-            var databaseConnection = new DatabaseConnection();
-            string orgid = Request.QueryString["OrgId"].ToString();
-            List<QuestionSet> questionlist = databaseConnection.GetAllQuestionSet01(orgid);
+            var databaseConnection = new DatabaseConnection();           
+            List<QuestionSet> questionlist = databaseConnection.GetAllQuestionSet();
             return View(questionlist);
         }
 
@@ -91,10 +90,10 @@ namespace SurveyWebApplication.Controllers
 
 
         [HttpGet]
-        public ActionResult Test()
+        public ActionResult Test(string dvalue)
         {
             var databaseConnection = new DatabaseConnection();
-            string setId = Request.QueryString["SetId"] == null ? "" : Request.QueryString["SetId"].ToString();
+            string setId = dvalue == null ? "" : dvalue;
             List<SurveyViewInfo> questionlist = new List<SurveyViewInfo>();
             if (setId == "")
             {

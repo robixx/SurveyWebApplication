@@ -519,7 +519,7 @@ namespace SurveyWebApplication.DAL
                 }
                 else
                 {
-                    query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId where d.SetId=" + @SetId;
+                    query = "select b.QuestionId,b.QuestionTitle,a.OptionId,a.OptionName,a.IsCorrect,a.OptionTypeId, c.OptionTypeName,d.SetId,(select count(OptionId) from QuestionAnswer where OptionId=a.OptionId) AnsCount from Options a left join Question b on a.QuestionId=b.QuestionId left join OptionType c on a.OptionTypeId=c.OptionTypeId left join SetManage d on b.QuestionId=d.QuestionId where d.SetId=" + @SetId;
                 }
 
               
@@ -538,7 +538,8 @@ namespace SurveyWebApplication.DAL
                             OptionTypeId = Convert.ToInt32(reader["OptionTypeId"]),
                             OptionTypeName = reader["OptionTypeName"].ToString(),
                             IsCorrect = Convert.ToBoolean(reader["IsCorrect"]),
-                            SetId = Convert.ToInt32(reader["SetId"])
+                            SetId = Convert.ToInt32(reader["SetId"]),
+                             AnsCount = reader["AnsCount"].ToString(),
                         });
                     }
                 }

@@ -17,7 +17,7 @@
     }
 </style>
 <div class=" shadow-lg p-3 rounded bg-light">
-    <h2 class="text-center">Organization List</h2><hr />
+    <h2 class="text-center">Survey List</h2><hr />
     <div class="row">
         <form id="www" method="post">
 
@@ -53,7 +53,7 @@
                 {
                     <div class="col-md-1"></div>
                     <div class="col-md-11 mt-1">
-                        <a href="@Url.Action("SetList", "SurveyManage", new { OrgId = @item.OrgId })" id="datafilter" class="pl-2">@k. @item.Name </a>
+                        <a href="@Url.Action("Test", "SurveyManage", new { OrgId = @item.OrgId })" id="datafilter" class="pl-2">@k. @item.Name </a>
                     </div>
                     k++;
                 }
