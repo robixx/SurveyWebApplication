@@ -62,7 +62,7 @@
                             <label for="email">Set Name</label>
                         </div>
                         <div class="col-md-5">
-                            <input id="setName" class="easyui-combobox " style="width: 275px; height: 35px;" value="SetId"  data-options="valueField:'SetId',textField:'SetName',method:'Get', url:'SetNameList/SurveyManage'">
+                            <input id="setName" class="easyui-combobox " style="width: 275px; height: 35px;"  data-options="valueField:'SetId',textField:'SetName',method:'Get', url:'SetNameList/SurveyManage'">
 
                         </div>
                         <div class="col-md-1"></div>
@@ -109,7 +109,7 @@
 
                                                 <input type="radio" name="questionResponses[@i].check" id="CheckOptionId" value="@Model[i].OptionList[j].OptionId" class="easyui-radiobutton optId" disabled>
                                                 <label class="textbox-label " style="width:80%; font-size:20px;">@Model[i].OptionList[j].OptionName</label>
-                                                <button id="btnResponseid" class="btn btn-primary custbtn" type="button" onclick="loadOptionDetails(@Model[i].OptionList[j].OptionId)">
+                                                <button id="btnResponseid[@i]" class="btn btn-primary custbtn" type="button" onclick="loadOptionDetails(@Model[i].OptionList[j].OptionId)">
                                                     <input type="hidden" name="questionResponses[@i]" id="CountId" value="@Model[i].OptionList[j].OptionId">
                                                     <span class="rounded-pill badge  ">@Model[i].OptionList[j].AnsCount</span>
                                                 </button>
@@ -259,7 +259,7 @@
 
 
     function loadOptionDetails(optId) {
-
+        debugger;
         $.ajax({
             url: "ModalData/" + optId,
             type: 'GET',
@@ -289,9 +289,12 @@
 
     }
 
-    $('#SetSearch').click(function () {
+    $('#SetSearch').click(function (e) {
+        e.preventDefault();
         debugger
         var dvalue =$('#setName').val();
+        window.location.href = '@Url.Action("Test", "SurveyManage")?dvalue=' + dvalue;
+
     });
    
 
